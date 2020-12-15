@@ -1,0 +1,54 @@
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+ 
+# Maven 
+target/
+
+# Temporary project files
+*.db
+*.script
+ 
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# Latex 
+*.tex~
+*.bib~
+*.pdf
+*.ps
+*.dvi
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
