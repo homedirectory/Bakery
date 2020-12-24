@@ -1,5 +1,7 @@
 package sssvn.config.personnel;
 
+import static sssvn.common.LayoutComposer.CELL_LAYOUT;
+import static sssvn.common.LayoutComposer.MARGIN;
 import static sssvn.common.LayoutComposer.*;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_SHORT_DESC;
@@ -64,6 +66,7 @@ public class PersonWebUiConfig {
     private EntityCentre<Person> createPersonCentre(final IWebUiBuilder builder) {
         final String layout = cell(
                 cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))  // row 1 -> 1, 2
+                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), // row 2 -> 3, 4
                PADDING_LAYOUT).toString();
 
@@ -83,6 +86,7 @@ public class PersonWebUiConfig {
                 .addCrit("this").asMulti().autocompleter(Person.class).also()
                 .addCrit("desc").asMulti().text().also()
                 // row 2
+                .addCrit("manager").asMulti().bool().also()
                 .addCrit("employeeNo").asMulti().text().also()
                 .addCrit("title").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
@@ -93,9 +97,10 @@ public class PersonWebUiConfig {
                     .withAction(standardEditAction).also()
                 .addProp("desc").minWidth(200).also()
                 .addProp("title").minWidth(200).also()
+                .addProp("aManager").minWidth(70).also()
+                .addProp("manager").minWidth(70).also()
                 .addProp("employeeNo").minWidth(70).also()
                 .addProp("phone").minWidth(70).also()
-                .addProp("mobile").minWidth(70).also()
                 .addProp("email").minWidth(70)
                 .addPrimaryAction(standardEditAction)
                 .build();
@@ -114,7 +119,7 @@ public class PersonWebUiConfig {
 
         final IMaster<Person> masterConfig = new SimpleMasterBuilder<Person>().forEntity(Person.class)
                 // row 1
-                .addProp("key").asSinglelineText().also()
+                .addProp("initials").asSinglelineText().also()
                 .addProp("active").asCheckbox().also()
                 // row 2
                 .addProp("desc").asMultilineText().also()
@@ -122,9 +127,11 @@ public class PersonWebUiConfig {
                 .addProp("employeeNo").asSinglelineText().also()
                 .addProp("title").asSinglelineText().also()
                 // row 4
-                .addProp("phone").asSinglelineText().also()
-                .addProp("mobile").asSinglelineText().also()
+                .addProp("aManager").asAutocompleter().also()
+                .addProp("manager").asCheckbox().also()
                 // row 5
+                .addProp("phone").asSinglelineText().also()
+                // row 6
                 .addProp("email").asSinglelineText().also()
                 .addProp("user").asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc(MASTER_CANCEL_ACTION_SHORT_DESC).longDesc(MASTER_CANCEL_ACTION_LONG_DESC)

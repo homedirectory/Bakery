@@ -10,11 +10,9 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import sssvn.personnel.PersonCo;
 import ua.com.fielden.platform.dao.QueryExecutionModel;
-import ua.com.fielden.platform.entity.query.fluent.fetch;
-import ua.com.fielden.platform.entity.query.model.EntityResultQueryModel;
-import ua.com.fielden.platform.entity.query.model.OrderingModel;
-import ua.com.fielden.platform.security.user.User;
+import ua.com.fielden.platform.entity.meta.MetaProperty;
 import ua.com.fielden.platform.utils.IUniversalConstants;
 import sssvn.personnel.Person;
 import sssvn.test_config.AbstractDaoTestCase;
@@ -48,6 +46,38 @@ public class PersonnelTest extends AbstractDaoTestCase {
         assertNotNull(person);
         assertFalse(person.isActive());
     }
+    
+//    @Test
+//    public void employees_must_have_manager_assigned() {
+//      	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+//    	final MetaProperty<Person> mpAManager = person.getProperty("aManager");
+//    	assertFalse(mpAManager.isRequired());
+//    	
+//    	person.setEmployeeNo("SOME NUMBER");
+//    	assertTrue(mpAManager.isRequired());
+//    	
+//    	person.setEmployeeNo(null);
+//    	assertFalse(mpAManager.isRequired());
+//    	
+//    	person.setEmployeeNo("SOME NUMBER");
+//    	assertTrue(mpAManager.isRequired());
+//    	person.setManager(true);
+//    	assertFalse(mpAManager.isRequired());
+//    }
+//    
+//    @Test
+//    public void only_employees_can_be_manager_and_asigning_employee_after_failure_recovers_automatically() {
+//    	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+//    	
+//    	person.setEmployeeNo(null);
+//    	person.setManager(true);
+//    	assertFalse(person.isManager());
+//    	
+//    	person.setEmployeeNo("SOME NUMBER");
+//    	person.setManager(true);
+//    	System.out.println(person.isManager());
+//    	assertTrue(person.isManager());
+//    }
 
     /**
      * In case of a complex data population it is possible to store the data into a script by changing this method to return <code>true</code>.
@@ -57,7 +87,7 @@ public class PersonnelTest extends AbstractDaoTestCase {
      */
     @Override
     public boolean saveDataPopulationScriptToFile() {
-        return false;
+        return true;
     }
 
     /**
@@ -97,8 +127,8 @@ public class PersonnelTest extends AbstractDaoTestCase {
         }
 
     	// Here the three Person entities are persisted using the the inherited from TG testing framework methods.
-        save(new_(Person.class, "RMD", "Ronald McDonald").setActive(true));
-        save(new_(Person.class, "JC", "John Carmack").setActive(false));
+        save(new_(Person.class).setInitials("RMD").setDesc("Ronald McDonald").setActive(true));
+        save(new_(Person.class).setInitials("JC").setDesc("John Carmack").setActive(false));
     }
 
 }
