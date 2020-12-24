@@ -1,8 +1,12 @@
 package sssvn.personnel;
 
+import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
+import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
+import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
+import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
@@ -12,9 +16,11 @@ import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
+import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.SkipEntityExistsValidation;
 import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.Unique;
+import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.property.validator.EmailValidator;
@@ -29,14 +35,14 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Generated
  *
  */
-@KeyType(String.class)
+@KeyType(DynamicEntityKey.class)
 @KeyTitle(value = "Initials", desc = "Person's initials, must represent the person uniquely - e.g. a number may be required if there are many people with the same initials.")
 @DescTitle(value = "Full Name", desc = "Person's full name - e.g. the first name followed by the middle initial followed by the surname.")
 @MapEntityTo
 @CompanionObject(PersonCo.class)
 @DescRequired
 @DisplayDescription
-public class Person extends ActivatableAbstractEntity<String> {
+public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Person.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
@@ -48,15 +54,26 @@ public class Person extends ActivatableAbstractEntity<String> {
     @Title(value = "User", desc = "An application user associated with the current person.")
     @SkipEntityExistsValidation(skipActiveOnly = true)
     private User user;
+    
+    
+    @IsProperty
+    @MapTo
+    @Required
+    @Title(value = "Initials", desc = "Desc")
+    @CompositeKeyMember(1)
+    @BeforeChange(@Handler(PersonInitialsValidator.class))
+    private String initials;
 
     @IsProperty
     @MapTo
-    @Title(value = "Title", desc = "Person's role, position or title.")
+    @Title(value = "Title", desc = "Person's position")
     private String title;
 
     @IsProperty
+    @Unique
     @MapTo
     @Title("Employee No")
+    @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
     private String employeeNo;
 
     @IsProperty
@@ -64,10 +81,6 @@ public class Person extends ActivatableAbstractEntity<String> {
     @Title("Phone")
     private String phone;
 
-    @IsProperty
-    @MapTo
-    @Title("Mobile")
-    private String mobile;
 
     @IsProperty
     @MapTo
@@ -91,15 +104,6 @@ public class Person extends ActivatableAbstractEntity<String> {
         return email;
     }
 
-    @Observable
-    public Person setMobile(final String mobile) {
-        this.mobile = mobile;
-        return this;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
 
     @Observable
     public Person setPhone(final String phone) {
@@ -129,6 +133,16 @@ public class Person extends ActivatableAbstractEntity<String> {
 
     public String getTitle() {
         return title;
+    }
+    
+    @Observable
+    public Person setInitials(final String initials) {
+        this.initials = initials;
+        return this;
+    }
+
+    public String getInitials() {
+        return initials;
     }
 
     @Override
