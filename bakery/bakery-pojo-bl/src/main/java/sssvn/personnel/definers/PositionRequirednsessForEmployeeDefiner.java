@@ -11,7 +11,7 @@ public class PositionRequirednsessForEmployeeDefiner extends AbstractAfterChange
     public void handle(final MetaProperty<Object> mp, final Object value) {
         final Person p = mp.getEntity();
         p.getProperty("title").setRequired(!StringUtils.isEmpty(p.getEmployeeNo()));
-
+        p.getProperty("aManager").setRequired(!StringUtils.isEmpty(p.getEmployeeNo()) && !p.isManager());
     }
 
 }
