@@ -1,12 +1,14 @@
 package sssvn.personnel;
 
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
+import sssvn.personnel.validators.EmployeeManagerSettingValidator;
 import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.Dependent;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
@@ -74,6 +76,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title("Employee No")
     @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
+    @Dependent({"manager"})
     private String employeeNo;
 
     @IsProperty
@@ -87,6 +90,18 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Title("Email")
     @BeforeChange(@Handler(EmailValidator.class))
     private String email;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Manager", desc = "A manager for the employee.")
+    private Manager aManager;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Manager?", desc = "Indicates personnel in the manager role.")  
+    @BeforeChange({@Handler(EmployeeManagerSettingValidator.class)})
+    @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
+    private boolean manager;
 
     @Override
     @Observable
@@ -144,6 +159,26 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     public String getInitials() {
         return initials;
     }
+    
+	@Observable
+	public Person setManager(final boolean manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	public boolean isManager() {
+		return manager;
+	}
+
+	@Observable
+	public Person setAManager(final Manager aManager) {
+		this.aManager = aManager;
+		return this;
+	}
+
+	public Manager getAManager() {
+		return aManager;
+	}
 
     @Override
     @Observable
