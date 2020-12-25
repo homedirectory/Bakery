@@ -47,37 +47,37 @@ public class PersonnelTest extends AbstractDaoTestCase {
         assertFalse(person.isActive());
     }
     
-//    @Test
-//    public void employees_must_have_manager_assigned() {
-//      	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
-//    	final MetaProperty<Person> mpAManager = person.getProperty("aManager");
-//    	assertFalse(mpAManager.isRequired());
-//    	
-//    	person.setEmployeeNo("SOME NUMBER");
-//    	assertTrue(mpAManager.isRequired());
-//    	
-//    	person.setEmployeeNo(null);
-//    	assertFalse(mpAManager.isRequired());
-//    	
-//    	person.setEmployeeNo("SOME NUMBER");
-//    	assertTrue(mpAManager.isRequired());
-//    	person.setManager(true);
-//    	assertFalse(mpAManager.isRequired());
-//    }
-//    
-//    @Test
-//    public void only_employees_can_be_manager_and_asigning_employee_after_failure_recovers_automatically() {
-//    	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
-//    	
-//    	person.setEmployeeNo(null);
-//    	person.setManager(true);
-//    	assertFalse(person.isManager());
-//    	
-//    	person.setEmployeeNo("SOME NUMBER");
-//    	person.setManager(true);
+    @Test
+    public void employees_must_have_manager_assigned() {
+      	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+    	final MetaProperty<Person> mpAManager = person.getProperty("aManager");
+    	assertFalse(mpAManager.isRequired());
+    	
+    	person.setEmployeeNo("SOME NUMBER");
+    	assertTrue(mpAManager.isRequired());
+    	
+    	person.setEmployeeNo(null);
+    	assertFalse(mpAManager.isRequired());
+    	
+    	person.setEmployeeNo("SOME NUMBER");
+    	assertTrue(mpAManager.isRequired());
+    	person.setManager(true);
+    	assertFalse(mpAManager.isRequired());
+    }
+    
+    @Test
+    public void only_employees_can_be_manager_and_asigning_employee_after_failure_recovers_automatically() {
+    	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+    	
+    	person.setEmployeeNo(null);
+    	person.setManager(true);
+    	assertFalse(person.isManager());
+    	
+    	person.setEmployeeNo("SOME NUMBER");
+    	person.setManager(true);
 //    	System.out.println(person.isManager());
-//    	assertTrue(person.isManager());
-//    }
+    	assertTrue(person.isManager());
+    }
 
     /**
      * In case of a complex data population it is possible to store the data into a script by changing this method to return <code>true</code>.

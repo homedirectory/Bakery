@@ -14,8 +14,6 @@ public class PersonInitialsValidator extends AbstractBeforeChangeEventHandler<St
     public Result handle(MetaProperty<String> property, String initials, Set<Annotation> mutatorAnnotations) {
         if(initials.contains(" ")) {
             return Result.failure(ERR_SPACES_NOT_PERMITTED);
-        } else if (initials.length() > 4) {
-            return Result.failure(ERR_TOO_MANY_SYMBOLS);
         }
         return Result.successful(initials);
     }
