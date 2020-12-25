@@ -95,7 +95,6 @@ public class PersonWebUiConfig {
                 .addProp("title").minWidth(200).also()
                 .addProp("employeeNo").minWidth(70).also()
                 .addProp("phone").minWidth(70).also()
-                .addProp("mobile").minWidth(70).also()
                 .addProp("email").minWidth(70)
                 .addPrimaryAction(standardEditAction)
                 .build();
@@ -114,7 +113,7 @@ public class PersonWebUiConfig {
 
         final IMaster<Person> masterConfig = new SimpleMasterBuilder<Person>().forEntity(Person.class)
                 // row 1
-                .addProp("key").asSinglelineText().also()
+                .addProp("initials").asSinglelineText().also()
                 .addProp("active").asCheckbox().also()
                 // row 2
                 .addProp("desc").asMultilineText().also()
@@ -123,7 +122,6 @@ public class PersonWebUiConfig {
                 .addProp("title").asSinglelineText().also()
                 // row 4
                 .addProp("phone").asSinglelineText().also()
-                .addProp("mobile").asSinglelineText().also()
                 // row 5
                 .addProp("email").asSinglelineText().also()
                 .addProp("user").asAutocompleter().also()
