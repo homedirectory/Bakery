@@ -171,10 +171,10 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 	}
 	
 	public boolean isEmployee() {
-	    if (this.employeeNo != null) {
-	        return true;
+	    if (this.employeeNo == null || this.employeeNo.isBlank()) {
+	        return false;
 	    }
-	    return false;
+	    return true;
 	        
 	}
 
