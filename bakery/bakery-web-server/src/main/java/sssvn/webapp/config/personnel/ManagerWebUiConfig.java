@@ -69,7 +69,7 @@ public class ManagerWebUiConfig {
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
-                .addProp("this").order(1).asc().minWidth(100)
+                .addProp("person").order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Manager.ENTITY_TITLE))
                     .withActionSupplier(builder.getOpenMasterAction(Person.class)).also()
                 .addProp("desc").minWidth(100).also()
