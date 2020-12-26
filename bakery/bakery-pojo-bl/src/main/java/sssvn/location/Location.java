@@ -115,6 +115,16 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     }
     
     @Observable
+    public Location setPhone(final String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    
+    @Observable
     public Location setWorkingHours(final String workingHours) {
         this.workingHours = workingHours;
         return this;
