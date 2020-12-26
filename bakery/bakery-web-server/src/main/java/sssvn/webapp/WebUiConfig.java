@@ -6,20 +6,19 @@ import org.apache.commons.lang3.StringUtils;
 
 import sssvn.config.Modules;
 import sssvn.config.personnel.PersonWebUiConfig;
+import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
-
+import sssvn.webapp.config.personnel.ManagerWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
+import ua.com.fielden.platform.entity.AbstractEntity;
+import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
-
-import ua.com.fielden.platform.entity.AbstractEntity;
-import ua.com.fielden.platform.reflection.TitlesDescsGetter;
-
 import ua.com.fielden.platform.web.resources.webui.AbstractWebUiConfig;
+import ua.com.fielden.platform.web.resources.webui.SecurityMatrixWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserRoleWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserWebUiConfig;
-import ua.com.fielden.platform.web.resources.webui.SecurityMatrixWebUiConfig;
 
 /**
  * App-specific {@link IWebApp} implementation.
@@ -76,6 +75,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         .setMinTabletWidth(600);
 
         // Users and Personnel Module
+        final ManagerWebUiConfig managerWebUiConfig = ManagerWebUiConfig.register(injector(), builder);
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
@@ -100,6 +100,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .captionBgColor(Modules.USERS_AND_PERSONNEL.captionBgColour)
             .menu()
                 .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, athorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
