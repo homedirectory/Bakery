@@ -55,7 +55,29 @@ public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
     @Authorise(Person_CanSave_Token.class)
     public Person save(final Person person) {
         person.isValid().ifFailure(Result::throwRuntime);
-        return super.save(person);
+        
+        // check if manager property was changed 
+        final boolean wasManagerChanged = person.getProperty("manager").isDirty();
+        final Person savedPerson = super.save(person);
+        
+        // if it was changed, then a new Manager object needs to be created or fetched if it already exists
+        if (wasManagerChanged) {
+        	final ManagerCo co$ = co$(Manager.class);
+        	final Optional<Manager> maybeManager = co$.findByKeyAndFetchOptional(co$.getFetchProvider().fetchModel(), savedPerson);
+        	
+        	/* if a Person was assigned the manager role -> get the fetched Manager object or create a new one if it does not exist yet 
+        		and sync its active state with Person */
+        	if (savedPerson.isManager()) {
+        		final Manager manager = maybeManager.orElseGet(() -> co$.new_().setPerson(savedPerson));
+        		co$.save(manager.setActive(savedPerson.isActive()));
+        	}
+        	// if a Person was was removed from the manager role -> set fetched Manager object active status to false
+        	else {
+        		maybeManager.ifPresent(manager -> co$.save(manager.setActive(false)));
+        	}
+        }
+        
+        return savedPerson;
     }
 
     @Override
