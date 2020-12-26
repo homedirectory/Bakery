@@ -35,7 +35,6 @@ import ua.com.fielden.platform.utils.Pair;
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
-@DescRequired
 public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Manager.class);
@@ -75,7 +74,12 @@ public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
 		return person;
 	}
 
-	
+	@Override
+	@Observable
+	public Manager setActive(boolean active) {
+		super.setActive(active);
+		return this;
+	}
 
 
 }
