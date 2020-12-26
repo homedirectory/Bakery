@@ -156,6 +156,25 @@ public class PersonnelTest extends AbstractDaoTestCase {
         
     }
     
+    @Test
+    public void manager_cannot_manage_nonemployee() {
+        final Person person1 = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        final MetaProperty<Person> mpAManager = person1.getProperty("aManager");
+    
+        
+        person1.setEmployeeNo("SOME NUMBER");
+        person1.setManager(true);
+        assertTrue(person1.isManager());
+        
+        final Manager manager1 = co$(Manager.class).findByKeyAndFetch(ManagerCo.FETCH_PROVIDER.fetchModel(), person1);
+        
+        final Person person2 = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        assertFalse(person2.isEmployee());
+        
+        person2.setAManager(manager1);
+        assertFalse(person2.getAManager() != null);
+        
+    }
 
 
     /**
