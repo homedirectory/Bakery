@@ -169,6 +169,14 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 	public boolean isManager() {
 		return manager;
 	}
+	
+	public boolean isEmployee() {
+	    if (this.employeeNo != null) {
+	        return true;
+	    }
+	    return false;
+	        
+	}
 
 	@Observable
 	public Person setAManager(final Manager aManager) {

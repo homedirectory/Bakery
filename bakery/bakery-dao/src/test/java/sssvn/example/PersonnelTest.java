@@ -155,6 +155,7 @@ public class PersonnelTest extends AbstractDaoTestCase {
         assertFalse(person1.getAManager() != null);
         
     }
+    
 
 
     /**
