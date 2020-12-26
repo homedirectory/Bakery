@@ -19,6 +19,8 @@ import ua.com.fielden.platform.entity.query.model.EntityResultQueryModel;
 import ua.com.fielden.platform.entity.query.model.OrderingModel;
 import ua.com.fielden.platform.security.user.User;
 import ua.com.fielden.platform.utils.IUniversalConstants;
+import sssvn.personnel.Manager;
+import sssvn.personnel.ManagerCo;
 import sssvn.personnel.Person;
 import sssvn.test_config.AbstractDaoTestCase;
 import sssvn.test_config.UniversalConstantsForTesting;
@@ -136,6 +138,42 @@ public class PersonnelTest extends AbstractDaoTestCase {
     	person.setManager(true);
 //    	System.out.println(person.isManager());
     	assertTrue(person.isManager());
+    }
+    
+    @Test
+    public void no_one_can_manage_themselves() {
+        final Person person1 = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        final MetaProperty<Person> mpAManager = person1.getProperty("aManager");
+    
+        
+        person1.setEmployeeNo("SOME NUMBER");
+        person1.setManager(true);
+        assertTrue(person1.isManager());
+        
+        final Manager manager1 = co$(Manager.class).findByKeyAndFetch(ManagerCo.FETCH_PROVIDER.fetchModel(), person1);
+        person1.setAManager(manager1);
+        assertFalse(person1.getAManager() != null);
+        
+    }
+    
+    @Test
+    public void manager_cannot_manage_nonemployee() {
+        final Person person1 = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        final MetaProperty<Person> mpAManager = person1.getProperty("aManager");
+    
+        
+        person1.setEmployeeNo("SOME NUMBER");
+        person1.setManager(true);
+        assertTrue(person1.isManager());
+        
+        final Manager manager1 = co$(Manager.class).findByKeyAndFetch(ManagerCo.FETCH_PROVIDER.fetchModel(), person1);
+        
+        final Person person2 = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        assertFalse(person2.isEmployee());
+        
+        person2.setAManager(manager1);
+        assertFalse(person2.getAManager() != null);
+        
     }
 
 
