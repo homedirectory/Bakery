@@ -1,6 +1,7 @@
 package sssvn.personnel;
 
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
+import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
 import sssvn.personnel.validators.EmployeeManagerSettingValidator;
 import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
@@ -26,9 +27,9 @@ import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.property.validator.EmailValidator;
+import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.security.Authorise;
 import ua.com.fielden.platform.security.user.User;
-import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
 /**
@@ -102,6 +103,12 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @BeforeChange({@Handler(EmployeeManagerSettingValidator.class)})
     @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
     private boolean manager;
+    
+    @IsProperty
+	@MapTo
+	@Title(value = "Carrier?", desc = "Indicates personnel in the carrier role.")
+    @BeforeChange({@Handler(EmployeeCarrierSettingValidator.class)})
+	private boolean carrier;
 
     @Override
     @Observable
@@ -168,6 +175,16 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 
 	public boolean isManager() {
 		return manager;
+	}
+	
+	@Observable
+	public Person setCarrier(final boolean carrier) {
+		this.carrier = carrier;
+		return this;
+	}
+
+	public boolean isCarrier() {
+		return carrier;
 	}
 	
 	public boolean isEmployee() {
