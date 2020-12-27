@@ -76,7 +76,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title("Employee No")
     @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
-    @Dependent({"manager"})
+    @Dependent({"aManager", "manager"})
     private String employeeNo;
 
     @IsProperty
