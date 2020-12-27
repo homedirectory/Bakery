@@ -56,7 +56,8 @@ public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
     public Person save(final Person person) {
         person.isValid().ifFailure(Result::throwRuntime);
         
-        // check if manager property was changed 
+        // check if manager/carrier property was changed
+        final boolean wasCarrierChanged = person.getProperty("carrier").isDirty();
         final boolean wasManagerChanged = person.getProperty("manager").isDirty();
         final Person savedPerson = super.save(person);
         
@@ -74,6 +75,22 @@ public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
         	// if a Person was was removed from the manager role -> set fetched Manager object active status to false
         	else {
         		maybeManager.ifPresent(manager -> co$.save(manager.setActive(false)));
+        	}
+        }
+        
+        if (wasCarrierChanged) {
+        	final CarrierCo co$ = co$(Carrier.class);
+        	final Optional<Carrier> maybeCarrier = co$.findByKeyAndFetchOptional(co$.getFetchProvider().fetchModel(), savedPerson);
+        	
+        	/* if a Person was assigned the carrier role -> get the fetched Carrier object or create a new one if it does not exist yet 
+        		and sync its active state with Person */
+        	if (savedPerson.isCarrier()) {
+        		final Carrier carrier = maybeCarrier.orElseGet(() -> co$.new_().setPerson(savedPerson));
+        		co$.save(carrier.setActive(savedPerson.isActive()));
+        	}
+        	// if a Person was was removed from the carrier role -> set fetched Carrier object active status to false
+        	else {
+        		maybeCarrier.ifPresent(carrier -> co$.save(carrier.setActive(false)));
         	}
         }
         
