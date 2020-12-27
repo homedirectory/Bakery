@@ -2,6 +2,7 @@ package sssvn.personnel;
 
 import java.util.Date;
 
+import sssvn.personnel.validators.EmploymentStartDateValidator;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -19,6 +20,8 @@ import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Readonly;
 import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
+import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.entity.validation.annotation.GeProperty;
 import ua.com.fielden.platform.entity.validation.annotation.LeProperty;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
@@ -60,17 +63,17 @@ public class Employment extends AbstractPersistentEntity<DynamicEntityKey> {
 
     @IsProperty
    	@MapTo
-   	@Dependent("finishDate")
    	@Title(value = "Start Date", desc = "The start of the employment period.")
     @Required
     @DateOnly
+    @BeforeChange(@Handler(EmploymentStartDateValidator.class))
    	private Date startDate;
 
    	@IsProperty
    	@MapTo
-   	@Dependent("startDate")
    	@Title(value = "Finish Date", desc = "The finish date of the employment period.")
    	@DateOnly
+   	@Dependent({"startDate"})
    	private Date finishDate;
 
    	@IsProperty
