@@ -4,24 +4,28 @@ import static ua.com.fielden.platform.reflection.TitlesDescsGetter.getEntityTitl
 
 import org.apache.commons.lang3.StringUtils;
 
+import sssvn.location.Location;
+import sssvn.order.Order;
+import sssvn.personnel.Carrier;
+import sssvn.personnel.Manager;
+import sssvn.personnel.Person;
+
 import sssvn.config.Modules;
 import sssvn.config.location.LocationWebUiConfig;
 import sssvn.config.personnel.PersonWebUiConfig;
-import sssvn.location.Location;
-import sssvn.personnel.Person;
-
+import sssvn.webapp.config.order.OrderWebUiConfig;
+import sssvn.webapp.config.personnel.CarrierWebUiConfig;
+import sssvn.webapp.config.personnel.ManagerWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
+import ua.com.fielden.platform.entity.AbstractEntity;
+import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
-
-import ua.com.fielden.platform.entity.AbstractEntity;
-import ua.com.fielden.platform.reflection.TitlesDescsGetter;
-
 import ua.com.fielden.platform.web.resources.webui.AbstractWebUiConfig;
+import ua.com.fielden.platform.web.resources.webui.SecurityMatrixWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserRoleWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserWebUiConfig;
-import ua.com.fielden.platform.web.resources.webui.SecurityMatrixWebUiConfig;
 
 /**
  * App-specific {@link IWebApp} implementation.
@@ -78,8 +82,11 @@ public class WebUiConfig extends AbstractWebUiConfig {
         .setMinTabletWidth(600);
 
         // Users and Personnel Module
+        final CarrierWebUiConfig carrierWebUiConfig = CarrierWebUiConfig.register(injector(), builder);
+        final ManagerWebUiConfig managerWebUiConfig = ManagerWebUiConfig.register(injector(), builder);
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
         final LocationWebUiConfig locationWebUiConfig = LocationWebUiConfig.register(injector(), builder);
+        final OrderWebUiConfig orderWebUiConfig = OrderWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final SecurityMatrixWebUiConfig securityConfig = SecurityMatrixWebUiConfig.register(injector(), configApp());
@@ -104,6 +111,9 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .menu()
                 .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Carrier.class)).description(mkMenuItemDesc(Carrier.class)).centre(carrierWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, athorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()

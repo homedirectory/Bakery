@@ -1,14 +1,12 @@
 package sssvn.personnel;
 
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.expr;
-import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.Calculated;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
-import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
@@ -30,20 +28,20 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("Manager")
-@CompanionObject(ManagerCo.class)
+@KeyTitle("Carrier")
+@CompanionObject(CarrierCo.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
-public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
+public class Carrier extends ActivatableAbstractEntity<DynamicEntityKey> {
 
-    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Manager.class);
+    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Carrier.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
     
     @IsProperty
 	@MapTo
-	@Title(value = "Person", desc = "Person that is in the manager role.")
+	@Title(value = "Person", desc = "Person that is in the carrier role.")
 	@CompositeKeyMember(1)
 	private Person person;
     
@@ -55,7 +53,7 @@ public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
 	protected static final ExpressionModel desc_ = expr().prop("person.desc").model();
 
 	@Observable
-	public Manager setDesc(final String desc) {
+	public Carrier setDesc(final String desc) {
 		this.desc = desc;
 		return this;
 	}
@@ -65,7 +63,7 @@ public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
 	}
 
 	@Observable
-	public Manager setPerson(final Person person) {
+	public Carrier setPerson(final Person person) {
 		this.person = person;
 		return this;
 	}
@@ -76,21 +74,10 @@ public class Manager extends ActivatableAbstractEntity<DynamicEntityKey> {
 
 	@Override
 	@Observable
-	public Manager setActive(boolean active) {
+	public Carrier setActive(boolean active) {
 		super.setActive(active);
 		return this;
 	}
-
+    
 
 }
-
-
-
-
-
-
-
-
-
-
-
