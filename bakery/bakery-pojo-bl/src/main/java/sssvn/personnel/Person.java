@@ -1,12 +1,15 @@
 package sssvn.personnel;
 
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
+import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
+import sssvn.personnel.validators.EmployeeManagerSettingValidator;
 import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.Dependent;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
@@ -24,9 +27,9 @@ import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.property.validator.EmailValidator;
+import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.security.Authorise;
 import ua.com.fielden.platform.security.user.User;
-import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
 /**
@@ -74,6 +77,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title("Employee No")
     @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
+    @Dependent({"aManager", "manager", "carrier"})
     private String employeeNo;
 
     @IsProperty
@@ -87,6 +91,24 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Title("Email")
     @BeforeChange(@Handler(EmailValidator.class))
     private String email;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Manager", desc = "A manager for the employee.")
+    private Manager aManager;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Manager?", desc = "Indicates personnel in the manager role.")  
+    @BeforeChange({@Handler(EmployeeManagerSettingValidator.class)})
+    @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
+    private boolean manager;
+    
+    @IsProperty
+	@MapTo
+	@Title(value = "Carrier?", desc = "Indicates personnel in the carrier role.")
+    @BeforeChange({@Handler(EmployeeCarrierSettingValidator.class)})
+	private boolean carrier;
 
     @Override
     @Observable
@@ -144,6 +166,44 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     public String getInitials() {
         return initials;
     }
+    
+	@Observable
+	public Person setManager(final boolean manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	public boolean isManager() {
+		return manager;
+	}
+	
+	@Observable
+	public Person setCarrier(final boolean carrier) {
+		this.carrier = carrier;
+		return this;
+	}
+
+	public boolean isCarrier() {
+		return carrier;
+	}
+	
+	public boolean isEmployee() {
+	    if (this.employeeNo == null || this.employeeNo.isBlank()) {
+	        return false;
+	    }
+	    return true;
+	        
+	}
+
+	@Observable
+	public Person setAManager(final Manager aManager) {
+		this.aManager = aManager;
+		return this;
+	}
+
+	public Manager getAManager() {
+		return aManager;
+	}
 
     @Override
     @Observable
