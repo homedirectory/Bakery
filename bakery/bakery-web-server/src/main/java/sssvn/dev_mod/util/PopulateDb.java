@@ -78,7 +78,7 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         setupUser(User.system_users.SU, "sssvn");
         setupPerson(User.system_users.SU, "sssvn");
-        setupLocation("Ukraine", "Lviv", "Kozelnytska 2a", 33L, "0987654321", "8:00 - 22:00");
+        setupLocation("Ukraine", "Lviv", "Kozelnytska 2a", 33L, "+380987654321", "8:00 - 22:00", "Morning croissant bakery point.");
 
         LOGGER.info("Completed database creation and population.");
 	}
@@ -88,8 +88,8 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         save(new_(Person.class).setInitials(defaultUser.name()).setActive(true).setUser(su).setDesc("Person who is a user").setEmail(defaultUser + "@" + emailDomain));
     }
     
-    private void setupLocation(final String country, final String city, final String address, final Long employeeAmount, final String phone, final String workingHours) {
-        save(new_(Location.class).setCountry(country).setCity(city).setAddress(address).setEmployeesAmount(employeeAmount).setPhone(phone).setWorkingHours(workingHours));
+    private void setupLocation(final String country, final String city, final String address, final Long employeeAmount, final String phone, final String workingHours, final String desc) {
+        save(new_(Location.class).setCountry(country).setCity(city).setAddress(address).setEmployeesAmount(employeeAmount).setPhone(phone).setWorkingHours(workingHours).setDesc(desc));
     }
 
     @Override
