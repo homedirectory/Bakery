@@ -87,6 +87,7 @@ public class PersonWebUiConfig {
                 .addCrit("desc").asMulti().text().also()
                 // row 2
                 .addCrit("manager").asMulti().bool().also()
+                .addCrit("carrier").asMulti().bool().also()
                 .addCrit("employeeNo").asMulti().text().also()
                 .addCrit("title").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
@@ -99,6 +100,7 @@ public class PersonWebUiConfig {
                 .addProp("title").minWidth(200).also()
                 .addProp("aManager").minWidth(70).also()
                 .addProp("manager").minWidth(70).also()
+                .addProp("carrier").minWidth(70).also()
                 .addProp("employeeNo").minWidth(70).also()
                 .addProp("phone").minWidth(70).also()
                 .addProp("email").minWidth(70)
@@ -112,6 +114,7 @@ public class PersonWebUiConfig {
         final String layout = cell(
                 cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
                .cell(cell().layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
+               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)),
@@ -130,6 +133,7 @@ public class PersonWebUiConfig {
                 .addProp("aManager").asAutocompleter().also()
                 .addProp("manager").asCheckbox().also()
                 // row 5
+                .addProp("carrier").asCheckbox().also()
                 .addProp("phone").asSinglelineText().also()
                 // row 6
                 .addProp("email").asSinglelineText().also()
