@@ -10,6 +10,7 @@ import sssvn.personnel.Person;
 import ua.com.fielden.platform.basic.config.IApplicationDomainProvider;
 import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
+import sssvn.location.Location;
 import sssvn.personnel.Manager;
 
 /**
@@ -26,6 +27,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
 		entityTypes.addAll(PlatformDomainTypes.types);
 		add(Person.class);
 		add(Manager.class);
+		add(Location.class);
 	}
 
 	private static void add(final Class<? extends AbstractEntity<?>> domainType) {
