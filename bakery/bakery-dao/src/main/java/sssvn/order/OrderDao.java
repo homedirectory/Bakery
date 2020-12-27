@@ -13,7 +13,7 @@ import ua.com.fielden.platform.entity.annotation.EntityType;
  *
  */
 @EntityType(Order.class)
-public class OrderDao extends CommonEntityDao<Order> implements IOrder {
+public class OrderDao extends CommonEntityDao<Order> implements OrderCo {
 
     @Inject
     public OrderDao(final IFilter filter) {
