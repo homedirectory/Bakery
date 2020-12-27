@@ -5,7 +5,9 @@ import static ua.com.fielden.platform.reflection.TitlesDescsGetter.getEntityTitl
 import org.apache.commons.lang3.StringUtils;
 
 import sssvn.config.Modules;
+import sssvn.config.location.LocationWebUiConfig;
 import sssvn.config.personnel.PersonWebUiConfig;
+import sssvn.location.Location;
 import sssvn.personnel.Person;
 
 import ua.com.fielden.platform.basic.config.Workflows;
@@ -77,6 +79,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
 
         // Users and Personnel Module
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
+        final LocationWebUiConfig locationWebUiConfig = LocationWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final SecurityMatrixWebUiConfig securityConfig = SecurityMatrixWebUiConfig.register(injector(), configApp());
@@ -100,6 +103,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .captionBgColor(Modules.USERS_AND_PERSONNEL.captionBgColour)
             .menu()
                 .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, athorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
