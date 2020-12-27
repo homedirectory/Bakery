@@ -14,7 +14,7 @@ public interface OrderCo extends IEntityDao<Order> {
 
     static final IFetchProvider<Order> FETCH_PROVIDER = EntityUtils.fetch(Order.class).with(
         // TODO: uncomment the following line and specify the properties, which are required for the UI. Then remove the line after.
-         "orderNo", "locationFrom", "locationTo", "carrier");
+         "orderNo", "desc", "locationFrom", "locationTo", "carrier");
         
 
 }
