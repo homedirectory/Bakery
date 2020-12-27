@@ -2,6 +2,7 @@ package sssvn.product;
 
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
+import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
@@ -29,7 +30,7 @@ import ua.com.fielden.platform.utils.Pair;
 @KeyTitle(value = "Name", desc = "Product`s name must represent the product uniquely")
 @DescTitle(value = "Price", desc = "Product's price - e.g. integer value")
 @MapEntityTo
-//@CompanionObject(PersonCo.class)
+@CompanionObject(ProductCo.class)
 @DescRequired
 @DisplayDescription
 public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
@@ -38,13 +39,6 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
 
-//    @IsProperty
-//    @Unique
-//    @MapTo
-//    @Title(value = "User", desc = "An application user associated with the current person.")
-//    @SkipEntityExistsValidation(skipActiveOnly = true)
-//    private User user;
-    
     
     @IsProperty
     @MapTo
@@ -52,7 +46,6 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Unique
     @Title(value = "Name", desc = "Desc")
     @CompositeKeyMember(1)
-//    @BeforeChange(@Handler(PersonInitialsValidator.class))
     private String name;
 
     @IsProperty
@@ -64,8 +57,6 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title("Price")
     @Required
-//    @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
-//    @Dependent({"manager"})
     private Money price;
 
     @IsProperty
@@ -79,6 +70,13 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     public Product setDesc(final String desc) {
         return (Product) super.setDesc(desc);
     }
+    
+    @Observable
+    public Product setDescription(final String description) {
+        this.description = description;
+        return this;
+    }
+    
 
     @Observable
     public Product setName(String name) {
@@ -96,6 +94,10 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     public Product setPrice(final Money price) {
         this.price = price;
         return this;
+    }
+    
+    public String getDescription() {
+        return description;
     }
     
 
