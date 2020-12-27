@@ -79,10 +79,8 @@ public class LocationWebUiConfig {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                // row 1
                 .addCrit("this").asMulti().autocompleter(Location.class).also()
                 .addCrit("desc").asMulti().text().also()
-                // row 2
                 .addCrit("country").asMulti().text().also()
                 .addCrit("city").asMulti().text().also()
                 .addCrit("address").asMulti().text().also()  // street
