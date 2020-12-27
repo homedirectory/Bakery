@@ -13,6 +13,7 @@ import ua.com.fielden.platform.entity.AbstractEntity;
 import sssvn.personnel.Manager;
 import sssvn.order.Order;
 import sssvn.personnel.Carrier;
+import sssvn.personnel.Employment;
 
 /**
  * A class to register domain entities.
@@ -21,9 +22,8 @@ import sssvn.personnel.Carrier;
  * 
  */
 public class ApplicationDomain implements IApplicationDomainProvider {
-    private static final Set<Class<? extends AbstractEntity<?>>> entityTypes = new LinkedHashSet<>();
-    private static final Set<Class<? extends AbstractEntity<?>>> domainTypes = new LinkedHashSet<>();
-
+	private static final Set<Class<? extends AbstractEntity<?>>> entityTypes = new LinkedHashSet<>();
+	private static final Set<Class<? extends AbstractEntity<?>>> domainTypes = new LinkedHashSet<>();
 
 	static {
 		entityTypes.addAll(PlatformDomainTypes.types);
@@ -31,20 +31,20 @@ public class ApplicationDomain implements IApplicationDomainProvider {
 		add(Manager.class);
 		add(Carrier.class);
 		add(Order.class);
+		add(Employment.class);
 	}
 
+	private static void add(final Class<? extends AbstractEntity<?>> domainType) {
+		entityTypes.add(domainType);
+		domainTypes.add(domainType);
+	}
 
-    private static void add(final Class<? extends AbstractEntity<?>> domainType) {
-        entityTypes.add(domainType);
-        domainTypes.add(domainType);
-    }
+	@Override
+	public List<Class<? extends AbstractEntity<?>>> entityTypes() {
+		return Collections.unmodifiableList(entityTypes.stream().collect(Collectors.toList()));
+	}
 
-    @Override
-    public List<Class<? extends AbstractEntity<?>>> entityTypes() {
-        return Collections.unmodifiableList(entityTypes.stream().collect(Collectors.toList()));
-    }
-
-    public List<Class<? extends AbstractEntity<?>>> domainTypes() {
-        return Collections.unmodifiableList(domainTypes.stream().collect(Collectors.toList()));
-    }
+	public List<Class<? extends AbstractEntity<?>>> domainTypes() {
+		return Collections.unmodifiableList(domainTypes.stream().collect(Collectors.toList()));
+	}
 }
