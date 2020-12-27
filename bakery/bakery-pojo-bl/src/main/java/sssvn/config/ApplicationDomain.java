@@ -11,7 +11,7 @@ import ua.com.fielden.platform.basic.config.IApplicationDomainProvider;
 import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import sssvn.personnel.Manager;
-
+import sssvn.order.Order;
 import sssvn.personnel.Carrier;
 
 /**
@@ -30,6 +30,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
 		add(Person.class);
 		add(Manager.class);
 		add(Carrier.class);
+		add(Order.class);
 	}
 
 
