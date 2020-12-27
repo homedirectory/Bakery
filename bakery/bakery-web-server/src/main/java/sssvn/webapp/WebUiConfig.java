@@ -7,11 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 import sssvn.config.Modules;
 import sssvn.config.personnel.PersonWebUiConfig;
 import sssvn.personnel.Carrier;
-import sssvn.order.Order;
+
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
 import sssvn.webapp.config.personnel.CarrierWebUiConfig;
-import sssvn.webapp.config.order.OrderWebUiConfig;
+
 import sssvn.webapp.config.personnel.ManagerWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.entity.AbstractEntity;
@@ -79,6 +79,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         .setMinTabletWidth(600);
 
         // Users and Personnel Module
+        final CarrierWebUiConfig carrierWebUiConfig = CarrierWebUiConfig.register(injector(), builder);
         final ManagerWebUiConfig managerWebUiConfig = ManagerWebUiConfig.register(injector(), builder);
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
         final OrderWebUiConfig orderWebUiConfig = OrderWebUiConfig.register(injector(), builder);
@@ -106,7 +107,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .menu()
                 .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
-                .addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
+
                 .addMenuItem(mkMenuItemTitle(Carrier.class)).description(mkMenuItemDesc(Carrier.class)).centre(carrierWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, athorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
