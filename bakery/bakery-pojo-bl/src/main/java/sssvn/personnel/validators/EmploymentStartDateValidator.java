@@ -18,7 +18,7 @@ public class EmploymentStartDateValidator extends AbstractBeforeChangeEventHandl
         final Employment employment = property.getEntity();
         final Date finishDate = employment.getFinishDate();
 
-        if (startDate.compareTo(finishDate) > 0) {
+        if (finishDate != null && startDate != null && startDate.compareTo(finishDate) > 0) {
         	return Result.failure(ERR_INVALID_DATE);
         }
         
