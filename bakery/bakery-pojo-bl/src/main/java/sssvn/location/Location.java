@@ -3,6 +3,7 @@ package sssvn.location;
 import java.util.ArrayList;
 
 import sssvn.location.LocationCo;
+import sssvn.location.validators.LocationPhoneValidator;
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
@@ -39,14 +40,14 @@ import ua.com.fielden.platform.utils.Pair;
  */
 @KeyType(DynamicEntityKey.class)
 @KeyTitle(value="Location", desc = "A location that represents a point of distribution for a network of bakeries.")
+@DescTitle(value="Description")
 @CompanionObject(LocationCo.class)
 @MapEntityTo
-@DescTitle("Description")
 @DisplayDescription
 
 public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
 	
-    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Manager.class);
+    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Location.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
     
@@ -79,10 +80,9 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Unique
     @Required
-    @Title(value="Phone number", desc = "Phone number of the location.")
+    @Title(value="phone", desc = "Phone number of the location.")
     // @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
-//  @BeforeChange(@Handler(LocationPhoneValidator.class))
-    @CompositeKeyMember(2)
+    @BeforeChange(@Handler(LocationPhoneValidator.class))
     private String phone;
     
     
@@ -92,6 +92,7 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Title(value="Working hours", desc = "Working hours of the location.")
 //  @BeforeChange(@Handler(LocationWorkingHoursValidator.class))
     private String workingHours;
+    
     
     @IsProperty
     @MapTo
@@ -159,5 +160,12 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     public Long getEmployeesAmount() {
         return employeesAmount;
     }
+    
+    @Override
+    @Observable
+    public Location setDesc(final String desc) {
+        return (Location) super.setDesc(desc);
+    }
+    
     
 }
