@@ -27,8 +27,8 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle(value = "Name", desc = "Product`s name must represent the product uniquely")
-@DescTitle(value = "Price", desc = "Product's price - e.g. integer value")
+@KeyTitle("Product")
+@DescTitle(value = "Description", desc = "Product's description")
 @MapEntityTo
 @CompanionObject(ProductCo.class)
 @DisplayDescription
@@ -42,15 +42,9 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Required
-    @Unique
-    @Title(value = "Name", desc = "Desc")
+    @Title(value = "Name", desc = "A name that represents the product uniquely.")
     @CompositeKeyMember(1)
     private String name;
-
-    @IsProperty
-    @MapTo
-    @Title(value = "Description", desc = "Product`s description")
-    private String description;
 
     @IsProperty
     @MapTo
@@ -63,20 +57,13 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Title("Recipe")
     private String recipe;
 
-
     @Override
     @Observable
     public Product setDesc(final String desc) {
-        return (Product) super.setDesc(desc);
-    }
-    
-    @Observable
-    public Product setDescription(final String description) {
-        this.description = description;
+        super.setDesc(desc);
         return this;
     }
     
-
     @Observable
     public Product setName(String name) {
         this.name = name;
@@ -95,15 +82,6 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
         return this;
     }
     
-    public String getDescription() {
-        return description;
-    }
-    
-
-    public String getDesc() {
-        return description;
-    }
-
     public String getName() {
         return name;
     }
