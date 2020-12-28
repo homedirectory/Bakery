@@ -31,7 +31,6 @@ import ua.com.fielden.platform.utils.Pair;
 @DescTitle(value = "Price", desc = "Product's price - e.g. integer value")
 @MapEntityTo
 @CompanionObject(ProductCo.class)
-@DescRequired
 @DisplayDescription
 public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
 

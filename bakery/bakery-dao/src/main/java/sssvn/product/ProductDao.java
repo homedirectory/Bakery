@@ -24,6 +24,6 @@ public class ProductDao extends CommonEntityDao<Product> implements ProductCo {
     protected IFetchProvider<Product> createFetchProvider() {
         // TODO: uncomment the following line and specify the properties, which are required for the UI in IProduct.FETCH_PROVIDER. Then remove the line after.
         // return FETCH_PROVIDER;
-        throw new UnsupportedOperationException("Please specify the properties, which are required for the UI in IProduct.FETCH_PROVIDER");
+        return FETCH_PROVIDER;
     }
 }
