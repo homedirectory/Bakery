@@ -1,8 +1,11 @@
 package sssvn.personnel;
 
+import java.util.Date;
+
 import com.google.inject.Inject;
 
 import ua.com.fielden.platform.dao.CommonEntityDao;
+import ua.com.fielden.platform.dao.annotations.SessionRequired;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 import ua.com.fielden.platform.entity.fetch.IFetchProvider;
 import ua.com.fielden.platform.entity.query.IFilter;
@@ -38,7 +41,8 @@ public class EmploymentDao extends CommonEntityDao<Employment> implements Employ
 	}
     
     @Override
-	public Employment save(Employment employment) {
+    @SessionRequired
+	public Employment save(final Employment employment) {
 		employment.isValid().ifFailure(Result::throwRuntime);
 		
 		boolean wasPersisted = employment.isPersisted();
