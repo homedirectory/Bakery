@@ -101,6 +101,14 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
 //  @BeforeChange(@Handler(LocationEmployeeAmountValidator.class))
     private Long employeesAmount;
     
+    @Override
+    @Observable
+    public Location setActive(boolean active) {
+        
+        super.setActive(active);
+        return this;
+    }
+    
     @Observable
     public Location setCountry(final String country) {
         this.country = country;

@@ -14,11 +14,11 @@ import com.google.inject.Injector;
 
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
+import sssvn.location.Location;
 import sssvn.main.menu.order.MiOrder;
 import sssvn.order.Order;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.web.PrefDim.Unit;
-import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
@@ -61,21 +61,20 @@ public class OrderWebUiConfig {
         final String layout = LayoutComposer.mkGridForCentre(1, 2);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Order.class);
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Order.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Order.class);
         final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Order.class);
-        final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
+       
         builder.registerOpenMasterAction(Order.class, standardEditAction);
 
         final EntityCentreConfig<Order> ecc = EntityCentreBuilder.centreFor(Order.class)
                 //.runAutomatically()
                 .addFrontAction(standardNewAction)
                 .addTopAction(standardNewAction).also()
-                .addTopAction(standardDeleteAction).also()
-                .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("orderNo").asMulti().text().also()
-                .addCrit("carrier").asMulti().autocompleter(Carrier.class)
+                .addCrit("carrier").asMulti().autocompleter(Carrier.class).also()
+                .addCrit("locationFrom").asMulti().autocompleter(Location.class).also()
+                .addCrit("locationTo").asMulti().autocompleter(Location.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -86,6 +85,7 @@ public class OrderWebUiConfig {
                 .addProp("locationFrom").minWidth(100).also()
                 .addProp("locationTo").minWidth(100).also()
                 .addProp("carrier").minWidth(100)
+                .addPrimaryAction(standardEditAction)
                 
                 .build();
 
@@ -104,8 +104,8 @@ public class OrderWebUiConfig {
                .cell(cell().repeat(1).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), PADDING_LAYOUT).toString();
 
         final IMaster<Order> masterConfig = new SimpleMasterBuilder<Order>().forEntity(Order.class)
-                .addProp("locationFrom").asSinglelineText().also()
-                .addProp("locationTo").asSinglelineText().also()
+                .addProp("locationFrom").asAutocompleter().also()
+                .addProp("locationTo").asAutocompleter().also()
                 .addProp("carrier").asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)

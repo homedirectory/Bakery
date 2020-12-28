@@ -1,10 +1,14 @@
 package sssvn.order;
 
+import sssvn.location.Location;
+import sssvn.order.validators.DifferentLocationsValidator;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.Dependent;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
@@ -14,7 +18,10 @@ import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Readonly;
+import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
+import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -25,13 +32,13 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("Number")
+@KeyTitle(value="Order", desc = "Order of goods within the network of bakeries")
 @CompanionObject(OrderCo.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
 
-public class Order extends AbstractPersistentEntity<DynamicEntityKey> {
+public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Order.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
@@ -47,18 +54,34 @@ public class Order extends AbstractPersistentEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "locationFrom", desc = "Location where the Carrier would take the goods")
-    private String locationFrom;
+    @BeforeChange(@Handler(DifferentLocationsValidator.class))
+    @Dependent({"locationTo"})
+    @Required
+    private Location locationFrom;
     
     @IsProperty
     @MapTo
     @Title(value = "locationTo", desc = "Location where the Carrier bring the goods")
-    private String locationTo;
+    @BeforeChange(@Handler(DifferentLocationsValidator.class))
+    @Dependent({"locationFrom"})
+    @Required
+    private Location locationTo;
     
     
     @IsProperty
     @MapTo
     @Title(value = "carrier", desc = "The carrier")
+    @Required
     private Carrier carrier;
+    
+    @Override
+    @Observable
+    protected Order setActive(boolean active) {
+        
+        super.setActive(active);
+        return this;
+    }
+    
 
     @Observable
     public Order setCarrier(final Carrier carrier) {
@@ -72,22 +95,22 @@ public class Order extends AbstractPersistentEntity<DynamicEntityKey> {
     
 
     @Observable
-    public Order setLocationFrom(final String locationFrom) {
+    public Order setLocationFrom(final Location locationFrom) {
         this.locationFrom = locationFrom;
         return this;
     }
 
-    public String getLocationFrom() {
+    public Location getLocationFrom() {
         return locationFrom;
     }
     
     @Observable
-    public Order setLocationTo(final String locationTo) {
+    public Order setLocationTo(final Location locationTo) {
         this.locationTo = locationTo;
         return this;
     }
 
-    public String getLocationTo() {
+    public Location getLocationTo() {
         return locationTo;
     }
 
