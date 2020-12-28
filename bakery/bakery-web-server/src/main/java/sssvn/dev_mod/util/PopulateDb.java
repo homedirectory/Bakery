@@ -13,6 +13,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 import org.apache.logging.log4j.Logger;
 
 import sssvn.config.ApplicationDomain;
+import sssvn.location.Location;
 import sssvn.personnel.Person;
 
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
@@ -77,6 +78,7 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         setupUser(User.system_users.SU, "sssvn");
         setupPerson(User.system_users.SU, "sssvn");
+        setupLocation("Ukraine", "Lviv", "Kozelnytska 2a", 33L, "0987654321", "8:00 - 22:00");
 
         LOGGER.info("Completed database creation and population.");
 	}
@@ -84,6 +86,10 @@ public class PopulateDb extends DomainDrivenDataPopulation {
     private void setupPerson(final User.system_users defaultUser, final String emailDomain) {
         final User su = co(User.class).findByKey(defaultUser.name());
         save(new_(Person.class).setInitials(defaultUser.name()).setActive(true).setUser(su).setDesc("Person who is a user").setEmail(defaultUser + "@" + emailDomain));
+    }
+    
+    private void setupLocation(final String country, final String city, final String address, final Long employeeAmount, final String phone, final String workingHours) {
+        save(new_(Location.class).setCountry(country).setCity(city).setAddress(address).setEmployeesAmount(employeeAmount).setPhone(phone).setWorkingHours(workingHours));
     }
 
     @Override
