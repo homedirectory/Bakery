@@ -12,9 +12,11 @@ import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import sssvn.location.Location;
 import sssvn.personnel.Manager;
+import sssvn.product.Product;
 import sssvn.order.Order;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
+
 
 /**
  * A class to register domain entities.
@@ -30,7 +32,8 @@ public class ApplicationDomain implements IApplicationDomainProvider {
 		entityTypes.addAll(PlatformDomainTypes.types);
 		add(Person.class);
 		add(Manager.class);
-		add(Location.class);
+		add(Product.class);
+    add(Location.class);
 		add(Carrier.class);
 		add(Order.class);
 		add(Employment.class);
