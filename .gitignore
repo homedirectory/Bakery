@@ -15,6 +15,9 @@
 # Maven 
 target/
 
+# MacOS
+*.DS_Store
+
 # Temporary project files
 *.db
 *.script
