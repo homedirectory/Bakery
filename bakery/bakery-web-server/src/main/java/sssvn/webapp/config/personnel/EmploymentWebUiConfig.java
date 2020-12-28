@@ -85,7 +85,8 @@ public class EmploymentWebUiConfig {
                 .addProp("employee").minWidth(100).also()
                 .addProp("startDate").width(100).also()
                 .addProp("finishDate").width(100).also()
-                .addProp("salary").minWidth(100).also()
+                .addEditableProp("salary").minWidth(100)
+                	.withSummary("total_salary_", "SUM(salary)", "Total salary of all employees").also()
                 .addProp("contractDocument").minWidth(100)
                 .addPrimaryAction(standardEditAction)
                 .build();
@@ -115,7 +116,7 @@ public class EmploymentWebUiConfig {
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
-                .withDimensions(mkDim(LayoutComposer.SIMPLE_TWO_COLUMN_MASTER_DIM_WIDTH, 440, Unit.PX))
+                .withDimensions(mkDim(LayoutComposer.SIMPLE_TWO_COLUMN_MASTER_DIM_WIDTH, 480, Unit.PX))
                 .done();
 
         return new EntityMaster<>(Employment.class, masterConfig, injector);
