@@ -101,7 +101,7 @@ public class ProductWebUiConfig {
         final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
 
         final IMaster<Product> masterConfig = new SimpleMasterBuilder<Product>().forEntity(Product.class)
-                .addProp("key").asSinglelineText().also()
+                .addProp("name").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
