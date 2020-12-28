@@ -1,5 +1,6 @@
 package sssvn.order;
 
+import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -56,16 +57,16 @@ public class Order extends AbstractPersistentEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
-    @Title(value = "carrier", desc = "Desc")
-    private String carrier;
+    @Title(value = "carrier", desc = "The carrier")
+    private Carrier carrier;
 
     @Observable
-    public Order setCarrier(final String carrier) {
+    public Order setCarrier(final Carrier carrier) {
         this.carrier = carrier;
         return this;
     }
 
-    public String getCarrier() {
+    public Carrier getCarrier() {
         return carrier;
     }
     

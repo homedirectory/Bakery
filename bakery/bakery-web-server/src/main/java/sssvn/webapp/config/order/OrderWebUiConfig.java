@@ -5,31 +5,30 @@ import static sssvn.common.LayoutComposer.CELL_LAYOUT;
 import static sssvn.common.LayoutComposer.MARGIN;
 import static sssvn.common.LayoutComposer.PADDING_LAYOUT;
 import static sssvn.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
+import static ua.com.fielden.platform.web.PrefDim.mkDim;
+import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import sssvn.order.Order;
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
-
-import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import sssvn.main.menu.order.MiOrder;
+import sssvn.order.Order;
+import sssvn.personnel.Carrier;
+import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
+import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
+import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
 import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
 import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
+import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import ua.com.fielden.platform.web.view.master.EntityMaster;
+import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
-import ua.com.fielden.platform.web.view.master.api.IMaster;
-import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-import sssvn.main.menu.order.MiOrder;
-import ua.com.fielden.platform.web.centre.EntityCentre;
-import ua.com.fielden.platform.web.view.master.EntityMaster;
-import static ua.com.fielden.platform.web.PrefDim.mkDim;
-import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
-
-import ua.com.fielden.platform.web.PrefDim.Unit;
 /**
  * {@link Order} Web UI configuration.
  *
@@ -76,7 +75,7 @@ public class OrderWebUiConfig {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("orderNo").asMulti().text().also()
-                .addCrit("carrier").asMulti().text()
+                .addCrit("carrier").asMulti().autocompleter(Carrier.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -102,12 +101,12 @@ public class OrderWebUiConfig {
     private EntityMaster<Order> createMaster(final Injector injector) {
         final String layout = cell(
                 cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), PADDING_LAYOUT).toString();
+               .cell(cell().repeat(1).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), PADDING_LAYOUT).toString();
 
         final IMaster<Order> masterConfig = new SimpleMasterBuilder<Order>().forEntity(Order.class)
                 .addProp("locationFrom").asSinglelineText().also()
                 .addProp("locationTo").asSinglelineText().also()
-                .addProp("carrier").asSinglelineText().also()
+                .addProp("carrier").asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
