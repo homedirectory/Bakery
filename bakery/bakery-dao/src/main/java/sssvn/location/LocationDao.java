@@ -44,6 +44,11 @@ public class LocationDao extends CommonEntityDao<Location> implements LocationCo
     protected LocationDao(final IFilter filter) {
         super(filter);
     }
+    
+    @Override
+    public Location new_() {
+        return super.new_().setActive(true);
+    }
 
     @Override
     protected IFetchProvider<Location> createFetchProvider() {

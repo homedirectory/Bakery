@@ -23,7 +23,7 @@ public class LocationTest extends AbstractDaoTestCase {
 	
 	@Test
     public void phone_does_not_permit_letters() {
-    	final Location location = co(Location.class).findByKeyAndFetch(LocationCo.FETCH_PROVIDER.fetchModel(), "Kozelnytska, 2a");
+    	final Location location = co$(Location.class).findByKeyAndFetch(LocationCo.FETCH_PROVIDER.fetchModel(), "Kozelnytska, 2a");
     	assertNotNull(location);
     	
     	System.out.println("Current phone : "+ location.getProperty("phone").toString());
