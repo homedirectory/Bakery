@@ -82,12 +82,11 @@ public class EmploymentWebUiConfig {
                 .addProp("this").order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Employment.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
-                .addProp("contractNo").width(70).also()
                 .addProp("employee").minWidth(100).also()
-                .addProp("startDate").width(70).also()
-                .addProp("finishDate").width(70).also()
-                .addProp("salary").minWidth(70).also()
-                .addProp("contractDocument").width(70)
+                .addProp("startDate").width(100).also()
+                .addProp("finishDate").width(100).also()
+                .addProp("salary").minWidth(100).also()
+                .addProp("contractDocument").minWidth(100)
                 .addPrimaryAction(standardEditAction)
                 .build();
 
