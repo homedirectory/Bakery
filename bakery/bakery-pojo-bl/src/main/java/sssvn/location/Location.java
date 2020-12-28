@@ -40,9 +40,9 @@ import ua.com.fielden.platform.utils.Pair;
  */
 @KeyType(DynamicEntityKey.class)
 @KeyTitle(value="Location", desc = "A location that represents a point of distribution for a network of bakeries.")
+@DescTitle(value="Description")
 @CompanionObject(LocationCo.class)
 @MapEntityTo
-@DescTitle("Description")
 @DisplayDescription
 
 public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {

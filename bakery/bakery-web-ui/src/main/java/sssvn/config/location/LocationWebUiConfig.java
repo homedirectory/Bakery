@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import com.google.inject.Injector;
 
+import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
 import sssvn.config.location.LocationWebUiConfig;
 import sssvn.location.Location;
@@ -92,13 +93,13 @@ public class LocationWebUiConfig {
                 .addProp("this").order(1).asc().minWidth(50)
                     .withSummary("total_count_", "COUNT(SELF)", "Count:The total number of matching Location.")
                     .withAction(standardEditAction).also()
-                .addProp("desc").minWidth(200).also()
+                .addProp("desc").minWidth(120).also()
                 .addProp("country").minWidth(70).also()
                 .addProp("city").minWidth(70).also()
-                .addProp("address").minWidth(70).also()
+                .addProp("address").minWidth(100).also()
                 .addProp("phone").minWidth(70).also()
                 .addProp("workingHours").minWidth(70).also()
-                .addProp("employeesAmount").minWidth(70)
+                .addProp("employeesAmount").minWidth(50)
                 .addPrimaryAction(standardEditAction)
                 .build();
 
@@ -106,12 +107,7 @@ public class LocationWebUiConfig {
     }
 
     private EntityMaster<Location> createLocationMaster() {
-        final String layout = cell(
-                cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)),
-               PADDING_LAYOUT).toString();
+    	final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 1, 2, 1, 1);
 
         final IMaster<Location> masterConfig = new SimpleMasterBuilder<Location>().forEntity(Location.class)
                 // row 1
@@ -121,10 +117,11 @@ public class LocationWebUiConfig {
                 .addProp("address").asMultilineText().also()
                 // row 3
                 .addProp("phone").asSinglelineText().also()
-                .addProp("workingHours").asSinglelineText().also()
-                // row 4
                 .addProp("employeesAmount").asDecimal().also()
-                .addProp("desc").asSinglelineText().also()
+                // row 4
+                .addProp("workingHours").asSinglelineText().also()
+                // row 5
+                .addProp("desc").asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc(MASTER_CANCEL_ACTION_SHORT_DESC).longDesc(MASTER_CANCEL_ACTION_LONG_DESC)
                 .addAction(MasterActions.SAVE).shortDesc(MASTER_SAVE_ACTION_SHORT_DESC).longDesc(MASTER_SAVE_ACTION_LONG_DESC)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), mkActionLayoutForMaster())

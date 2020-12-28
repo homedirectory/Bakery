@@ -4,14 +4,14 @@ import ua.com.fielden.platform.utils.EntityUtils;
 import ua.com.fielden.platform.dao.IEntityDao;
 
 /**
- * Companion object for entity {@link Manager}.
+ * Companion object for entity {@link Location}.
  *
  * @author Developers
  *
  */
 public interface LocationCo extends IEntityDao<Location> {
 
-    static final IFetchProvider<Location> FETCH_PROVIDER = EntityUtils.fetch(Location.class).with("country", "city", "address", "phone",
+    static final IFetchProvider<Location> FETCH_PROVIDER = EntityUtils.fetch(Location.class).with("desc", "country", "city", "address", "phone",
     																							"workingHours", "employeesAmount");
 
 }
