@@ -1,30 +1,25 @@
 package sssvn.example;
 
-import static org.junit.Assert.*;
-import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.fetch;
-import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.from;
-import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.orderBy;
-import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.Test;
 
-import sssvn.personnel.PersonCo;
-import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
-import ua.com.fielden.platform.dao.QueryExecutionModel;
-import ua.com.fielden.platform.entity.meta.MetaProperty;
-import ua.com.fielden.platform.entity.query.fluent.fetch;
-import ua.com.fielden.platform.entity.query.model.EntityResultQueryModel;
-import ua.com.fielden.platform.entity.query.model.OrderingModel;
-import ua.com.fielden.platform.security.user.User;
-import ua.com.fielden.platform.utils.IUniversalConstants;
+import sssvn.personnel.Carrier;
+import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Manager;
 import sssvn.personnel.ManagerCo;
 import sssvn.personnel.Person;
+import sssvn.personnel.PersonCo;
+import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.test_config.AbstractDaoTestCase;
 import sssvn.test_config.UniversalConstantsForTesting;
-import sssvn.personnel.validators.PersonInitialsValidator;
+import ua.com.fielden.platform.entity.meta.MetaProperty;
+import ua.com.fielden.platform.utils.IUniversalConstants;
 
 /**
  * This is an example unit test, which can be used as a starting point for creating application unit tests.
@@ -174,6 +169,23 @@ public class PersonnelTest extends AbstractDaoTestCase {
         person2.setAManager(manager1);
         assertFalse(person2.getAManager() != null);
         
+    }
+    
+    @Test
+    public void carrier_is_created_after_person_is_given_carrier_role() {
+    	final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+    	
+    	person.setEmployeeNo("12312312");
+    	person.setTitle("sss");
+    	person.setManager(true);
+    	person.setCarrier(true);
+    	
+    	final Person savedPerson = save(person);
+    	
+    	final Optional<Carrier> carrier = co$(Carrier.class).findByKeyAndFetchOptional(CarrierCo.FETCH_PROVIDER.fetchModel(), savedPerson);
+    	
+    	assertTrue(carrier.isPresent());
+    	assertEquals(savedPerson, carrier.get().getPerson());
     }
 
 
