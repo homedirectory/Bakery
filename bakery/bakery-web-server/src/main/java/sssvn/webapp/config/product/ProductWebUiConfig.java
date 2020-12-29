@@ -54,7 +54,7 @@ public class ProductWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Product> createCentre(final Injector injector, final IWebUiBuilder builder) {
-            final String layout = LayoutComposer.mkGridForCentre(1, 2);
+            final String layout = LayoutComposer.mkVarGridForCentre(2, 1);
 
 
             final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Product.class);
@@ -72,7 +72,9 @@ public class ProductWebUiConfig {
                     .addTopAction(standardSortAction).also()
                     .addTopAction(standardExportAction)
                     .addCrit("this").asMulti().autocompleter(Product.class).also()
-                    .addCrit("desc").asMulti().text()
+                    .addCrit("desc").asMulti().text().also()
+                    .addCrit("price").asRange().decimal()
+                    
                     .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                     .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                     .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -80,7 +82,9 @@ public class ProductWebUiConfig {
                     .addProp("this").order(1).asc().minWidth(100)
                         .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Product.ENTITY_TITLE))
                         .withAction(standardEditAction).also()
-                    .addProp("desc").minWidth(100)
+                    .addProp("desc").minWidth(100).also()
+                    .addProp("price").minWidth(100).also()
+                    .addProp("recipe").minWidth(100)
                     //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
                     .addPrimaryAction(standardEditAction).build();
             
@@ -98,11 +102,14 @@ public class ProductWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Product> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 1);
 
         final IMaster<Product> masterConfig = new SimpleMasterBuilder<Product>().forEntity(Product.class)
                 .addProp("name").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
+                .addProp("price").asMoney().also()
+                .addProp("recipe").asMultilineText().also()
+                
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
