@@ -77,6 +77,7 @@ public class Employment extends AbstractPersistentEntity<DynamicEntityKey> {
 	@DateOnly
 	@Dependent("startDate")
 	@Title(value = "Finish Date", desc = "Date indicating the end of employment period")
+	@BeforeChange(@Handler(EmploymentFinishDateValidator.class))
 	private Date finishDate;
 
    	@IsProperty

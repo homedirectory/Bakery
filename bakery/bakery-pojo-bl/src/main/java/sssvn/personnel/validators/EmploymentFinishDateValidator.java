@@ -12,14 +12,13 @@ import ua.com.fielden.platform.entity.meta.MetaProperty;
 import ua.com.fielden.platform.entity.meta.impl.AbstractBeforeChangeEventHandler;
 import ua.com.fielden.platform.error.Result;
 
-public class EmploymentStartDateValidator extends AbstractBeforeChangeEventHandler<Date> {
+public class EmploymentFinishDateValidator extends AbstractBeforeChangeEventHandler<Date> {
 	
-	public static final String ERR_EMPLOYEE_CURR_EMPLOYMENT_INTERSECTION = "This date intersects with the employee's current employment";
-
 	@Override
-	public Result handle(final MetaProperty<Date> property, final Date startDate, final Set<Annotation> mutatorAnnotations) {
+	public Result handle(final MetaProperty<Date> property, final Date finishDate, final Set<Annotation> mutatorAnnotations) {
 		
 		final Employment employment = property.getEntity();
+		final Date startDate = employment.getStartDate();
 		
 		final Employment employeeCurrEmployment = employment.getEmployee().getCurrEmployment();
 		
@@ -27,8 +26,8 @@ public class EmploymentStartDateValidator extends AbstractBeforeChangeEventHandl
 			final Date currStartDate = employeeCurrEmployment.getStartDate();
 			final Date currFinishDate = employeeCurrEmployment.getFinishDate();
 			
-			if (startDate.compareTo(currStartDate) >= 0 && (currFinishDate == null || startDate.compareTo(currFinishDate) <= 0)) {
-				return Result.failure(ERR_EMPLOYEE_CURR_EMPLOYMENT_INTERSECTION);
+			if (finishDate.compareTo(currStartDate) >= 0 && (currFinishDate == null || finishDate.compareTo(currFinishDate) <= 0)) {
+				return Result.failure(EmploymentStartDateValidator.ERR_EMPLOYEE_CURR_EMPLOYMENT_INTERSECTION);
 			}
 			
 		}
