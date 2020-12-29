@@ -6,6 +6,7 @@ import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.selec
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
 import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
 import sssvn.personnel.validators.EmployeeManagerSettingValidator;
+import sssvn.personnel.validators.GenerateEmployeeNoValidator;
 import sssvn.personnel.validators.PersonInitialsValidator;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
@@ -81,6 +82,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @Unique
     @MapTo
+    @Readonly
     @Title("Employee No")
     @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
     @Dependent({"aManager", "manager", "carrier"})
@@ -107,7 +109,6 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title("Phone")
     private String phone;
-
 
     @IsProperty
     @MapTo

@@ -7,6 +7,8 @@ import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.from;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +27,8 @@ import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.entity.query.fluent.fetch;
 import ua.com.fielden.platform.entity.query.model.EntityResultQueryModel;
 import ua.com.fielden.platform.error.Result;
+import ua.com.fielden.platform.keygen.IKeyNumber;
+import ua.com.fielden.platform.keygen.KeyNumber;
 import ua.com.fielden.platform.security.Authorise;
 import ua.com.fielden.platform.security.user.IUser;
 import ua.com.fielden.platform.security.user.User;
@@ -37,7 +41,7 @@ import ua.com.fielden.platform.security.user.User;
  */
 @EntityType(Person.class)
 public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
-
+	
     private static final Logger LOGGER = getLogger(PersonDao.class);
 
     @Inject
@@ -47,7 +51,7 @@ public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
 
     @Override
     public Person new_() {
-        return super.new_().setActive(true);
+        return super.new_().setActive(true).setGenerateEmployeeNo(false);
     }
 
     @Override
