@@ -4,6 +4,7 @@ import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.expr;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
 import sssvn.personnel.definers.GenerateEmployeeNoDefiner;
+import sssvn.personnel.definers.ManagerNonRequirednessForCarrierDefiner;
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
 import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
 import sssvn.personnel.validators.EmployeeManagerSettingValidator;
