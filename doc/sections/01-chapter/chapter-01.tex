@@ -201,7 +201,7 @@ To search for a Product one can select the following search criteria:
 
 - Price range of the products
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/product1.png}\\
+\includegraphics[width=\textwidth]{sections/01-chapter/images/product1.png}
 
 As a system user aka Manager, to register a new product you need to press the plus button and add the product using the following fields:
 
@@ -215,6 +215,32 @@ As a system user aka Manager, to register a new product you need to press the pl
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/product2.png}
 
+\subsection{Carrier}
+
+A carrier cannot be added to the table of carriers straightforwardly. It can only be added to the table by clicking the Carrier? checkbox during the registration of a Person:
+
+A Carrier should have its EmployeeNo, Title, and a manager assigned to it. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/carrier1.png}
+
+The required for a Carrier fields are: 
+
+The required fields for a manager are:
+
+- Employee No → the indicator number of the employee, can be generated automatically, if specified in the checkbox to the right.
+
+- Manager → The Manager of a Carrier
+
+In addition, the standard fields are required:
+
+- Initials
+
+- Active? checkbox - which indicates whether the system can further use can interact with the Manager/ The indicator of an active participant in the system. The environment cannot interact with inactive Person.
+
+- Full Name
+
+The rest of the fields are optional and the same as described in Person.
+
 \subsection{Order}
 
 The list of Orders is located as the rest of the entities -- in the left panel menu. 
@@ -223,7 +249,7 @@ The list of Orders is located as the rest of the entities -- in the left panel m
 
 The needed Order can be found by two criteria that characterize the Order : 
 
-- orderNo → string that represents the order code number in the format ‘ORD-ХХХХХХХ’. By default it is automatically generated, but can be set up by User during man
+- orderNo → string that represents the order code number in the format "ORD-OOOOOOO".By default it is automatically generated, but can be set up by User during man
 
 - Carrier → String that represents the initials of a  Carrier
 
