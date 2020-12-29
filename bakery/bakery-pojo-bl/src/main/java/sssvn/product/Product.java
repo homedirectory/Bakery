@@ -4,7 +4,6 @@ import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
-import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
@@ -15,7 +14,6 @@ import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
-import ua.com.fielden.platform.entity.annotation.Unique;
 import ua.com.fielden.platform.types.Money;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
@@ -27,8 +25,8 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle(value = "Name", desc = "Product`s name must represent the product uniquely")
-@DescTitle(value = "Price", desc = "Product's price - e.g. integer value")
+@KeyTitle("Product")
+@DescTitle(value = "Description", desc = "Product's description")
 @MapEntityTo
 @CompanionObject(ProductCo.class)
 @DisplayDescription
@@ -42,15 +40,9 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Required
-    @Unique
-    @Title(value = "Name", desc = "Desc")
+    @Title(value = "Name", desc = "A name that represents the product uniquely.")
     @CompositeKeyMember(1)
     private String name;
-
-    @IsProperty
-    @MapTo
-    @Title(value = "Description", desc = "Product`s description")
-    private String description;
 
     @IsProperty
     @MapTo
@@ -63,20 +55,13 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Title("Recipe")
     private String recipe;
 
-
     @Override
     @Observable
     public Product setDesc(final String desc) {
-        return (Product) super.setDesc(desc);
-    }
-    
-    @Observable
-    public Product setDescription(final String description) {
-        this.description = description;
+        super.setDesc(desc);
         return this;
     }
     
-
     @Observable
     public Product setName(String name) {
         this.name = name;
@@ -95,15 +80,15 @@ public class Product extends ActivatableAbstractEntity<DynamicEntityKey> {
         return this;
     }
     
-    public String getDescription() {
-        return description;
+    @Override
+    @Observable
+    public Product setActive(boolean active) {
+
+        super.setActive(active);
+        return this;
     }
+
     
-
-    public String getDesc() {
-        return description;
-    }
-
     public String getName() {
         return name;
     }
