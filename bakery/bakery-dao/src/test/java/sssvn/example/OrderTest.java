@@ -36,15 +36,15 @@ public class OrderTest extends AbstractDaoTestCase {
 
         assertEquals(order.getOrderNo(), "123");
 
-        Location loc = (Location) order.getProperty("locationFrom").getValue();
+        Location loc = (Location) order.getProperty("locationTo").getValue();
 
-        order.setLocationTo(loc);
+        order.setLocationFrom(loc);
 
         final MetaProperty<Location> mp = order.getProperty("locationFrom");
 
         assertFalse(mp.isDirty());
-      
-        assertEquals(DifferentLocationsValidator.SAME_LOC_NOT_PERMITTED, mp.getFirstFailure().getMessage());     
+
+        assertEquals(DifferentLocationsValidator.ERR_SAME_LOC_NOT_PERMITTED, mp.getFirstFailure().getMessage());
 
     }
 
