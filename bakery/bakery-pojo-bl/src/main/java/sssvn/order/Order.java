@@ -1,8 +1,7 @@
 package sssvn.order;
 
 import sssvn.location.Location;
-import sssvn.order.validators.DifferentLocationsValidatorFrom;
-import sssvn.order.validators.DifferentLocationsValidatorTo;
+import sssvn.order.validators.DifferentLocationsValidator;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
@@ -48,29 +47,25 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @CompositeKeyMember(1)
     @Readonly
-    @Title(value = "orderNo", desc = "number of the order")
+    @Title(value = "Order Number", desc = "number of the order")
     private String orderNo;
     
     @IsProperty
     @MapTo
-    @Title(value = "locationFrom", desc = "Location where the Carrier would take the goods")
-    @BeforeChange(@Handler(DifferentLocationsValidatorFrom.class))
-    @Dependent({"locationTo"})
-    @Required
+    @Title(value = "Departure", desc = "Location where the Carrier would take the goods")
+    @BeforeChange(@Handler(DifferentLocationsValidator.class))
     private Location locationFrom;
     
     @IsProperty
     @MapTo
-    @Title(value = "locationTo", desc = "Location where the Carrier bring the goods")
-    @BeforeChange(@Handler(DifferentLocationsValidatorTo.class))
+    @Title(value = "Destination", desc = "Location where the Carrier bring the goods")
     @Dependent({"locationFrom"})
-    @Required
     private Location locationTo;
     
     
     @IsProperty
     @MapTo
-    @Title(value = "carrier", desc = "The carrier")
+    @Title(value = "Carrier", desc = "The carrier, that is assigned to make a delivery")
     @Required
     private Carrier carrier;
     
