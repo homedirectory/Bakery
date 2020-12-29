@@ -22,13 +22,15 @@ public class EmploymentStartDateValidator extends AbstractBeforeChangeEventHandl
 		final Employment employment = property.getEntity();
 		
 		final Employment employeeCurrEmployment = employment.getEmployee().getCurrEmployment();
-		final Date currStartDate = employeeCurrEmployment.getStartDate();
-		final Date currFinishDate = employeeCurrEmployment.getFinishDate();
 		
 		if (employeeCurrEmployment != null) {
+			final Date currStartDate = employeeCurrEmployment.getStartDate();
+			final Date currFinishDate = employeeCurrEmployment.getFinishDate();
+			
 			if (startDate.compareTo(currStartDate) >= 0 && (currFinishDate == null || startDate.compareTo(currFinishDate) <= 0)) {
 				return Result.failure(ERR_EMPLOYEE_CURR_EMPLOYMENT_INTERSECTION);
 			}
+			
 		}
 		
 		return Result.successful(startDate);
