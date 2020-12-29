@@ -63,7 +63,7 @@ public class OrderItem extends AbstractPersistentEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value = "Quantity", desc = "A quantity of a product which is included into Order.")
-    private int quantity;
+    private Long quantity;
     
     @Observable
     public OrderItem setOrder(final Order order) {
@@ -87,12 +87,12 @@ public class OrderItem extends AbstractPersistentEntity<DynamicEntityKey> {
     
     
     @Observable
-    public OrderItem setQuantity(final int quantity) {
+    public OrderItem setQuantity(final Long quantity) {
         this.quantity = quantity;
         return this;
     }
 
-    public int getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
     

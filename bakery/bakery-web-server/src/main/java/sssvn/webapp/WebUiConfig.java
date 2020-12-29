@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import sssvn.location.Location;
 import sssvn.order.Order;
+import sssvn.order.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
 import sssvn.personnel.Manager;
@@ -14,6 +15,7 @@ import sssvn.product.Product;
 import sssvn.config.Modules;
 import sssvn.config.location.LocationWebUiConfig;
 import sssvn.config.personnel.PersonWebUiConfig;
+import sssvn.webapp.config.order.OrderItemWebUiConfig;
 import sssvn.webapp.config.order.OrderWebUiConfig;
 import sssvn.webapp.config.personnel.CarrierWebUiConfig;
 import sssvn.webapp.config.personnel.EmploymentWebUiConfig;
@@ -92,6 +94,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final LocationWebUiConfig locationWebUiConfig = LocationWebUiConfig.register(injector(), builder);
         final ProductWebUiConfig productWebUiConfig = ProductWebUiConfig.register(injector(), builder);
         final OrderWebUiConfig orderWebUiConfig = OrderWebUiConfig.register(injector(), builder);
+        final OrderItemWebUiConfig orderItemWebUiConfig = OrderItemWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final SecurityMatrixWebUiConfig securityConfig = SecurityMatrixWebUiConfig.register(injector(), configApp());
@@ -118,6 +121,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(OrderItem.class)).description(mkMenuItemDesc(OrderItem.class)).centre(orderItemWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Carrier.class)).description(mkMenuItemDesc(Carrier.class)).centre(carrierWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Employment.class)).description(mkMenuItemDesc(Employment.class)).centre(employmentWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Product.class)).description(mkMenuItemDesc(Product.class)).centre(productWebUiConfig.centre).done()

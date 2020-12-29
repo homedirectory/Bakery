@@ -45,12 +45,14 @@ public class ProductAmountForOrderValidator extends AbstractBeforeChangeEventHan
 		final OrderingModel orderBy = orderBy().prop("order.locationFrom").asc().prop("order.locationTo").asc().model();
 		final QueryExecutionModel<OrderItem, EntityResultQueryModel<OrderItem>> qem = from(query).with(fetch).with(orderBy).model();
 		
-//		try (final Stream<OrderItem> items = co(OrderItem.class).stream(qem)) {
-//			items.forEach(item -> System.out.printf("Order: %s, Product: %s, Quantity: %s%n", 
-//					item.getOrder(), item.getProduct(), item.getQuantity()));		
-//			}
-	
+		try (final Stream<OrderItem> items = co(OrderItem.class).stream(qem)) {
+			items.forEach(item -> System.out.printf("Order: %s, Product: %s, Quantity: %s%n", 
+					item.getOrder(), item.getProduct(), item.getQuantity()));		
+			}
+				
 		final List<OrderItem> items = co(OrderItem.class).getAllEntities(qem);
+		System.out.println(items.size());
+
 		if (items.size() > THRASHOLD) {
 			return Result.failure(ERR_PRODUCT_AMOUNT_EXCEEDS_THRASHOLD);
 		}
