@@ -3,6 +3,7 @@ package sssvn.personnel;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.expr;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
+import sssvn.personnel.definers.GenerateEmployeeNoDefiner;
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
 import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
 import sssvn.personnel.validators.EmployeeManagerSettingValidator;
@@ -88,6 +89,13 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Dependent({"aManager", "manager", "carrier"})
     private String employeeNo;
     
+    @IsProperty
+	@MapTo
+	@Title(value = "Generate Employee No?", desc = "Indicates whether to generate employee no")
+    @BeforeChange(@Handler(GenerateEmployeeNoValidator.class))
+    @AfterChange(GenerateEmployeeNoDefiner.class)
+	private boolean generateEmployeeNo;
+
     @IsProperty
 	@Readonly
 	@Calculated
@@ -260,6 +268,16 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 
 	public Employment getCurrEmployment() {
 		return currEmployment;
+	}
+	
+	@Observable
+	public Person setGenerateEmployeeNo(final boolean generateEmployeeNo) {
+		this.generateEmployeeNo = generateEmployeeNo;
+		return this;
+	}
+
+	public boolean getGenerateEmployeeNo() {
+		return generateEmployeeNo;
 	}
 
 }

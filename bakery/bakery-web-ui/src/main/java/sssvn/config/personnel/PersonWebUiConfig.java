@@ -1,22 +1,18 @@
 package sssvn.config.personnel;
 
-import static sssvn.common.LayoutComposer.CELL_LAYOUT;
-import static sssvn.common.LayoutComposer.MARGIN;
-import static sssvn.common.LayoutComposer.PADDING_LAYOUT;
 import static sssvn.common.LayoutComposer.mkActionLayoutForMaster;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_SHORT_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_SHORT_DESC;
-import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
+import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
 import sssvn.main.menu.personnel.MiPerson;
-import sssvn.personnel.Employment;
 import sssvn.personnel.Person;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
