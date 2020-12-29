@@ -32,8 +32,9 @@ import ua.com.fielden.platform.error.Result;
 public class ProductAmountForOrderValidator extends AbstractBeforeChangeEventHandler<Product> {
 	public static final Integer THRESHOLD = 10;
 	public static final Integer THRESHOLD_MINIMUM = 3;
-    public static final String ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD = String.format("Number of products added exceeds the maximum amount of %s items in a single order.", THRESHOLD);
-    public static final String WARN_PRODUCT_AMOUNT_TOO_SMALL = String.format("Warning: minimum preferable product amount in a single order is %s.", THRESHOLD_MINIMUM);
+
+  public static final String ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD = String.format("Number of products added exceeds the maximum amount of %s items in a single order.", THRESHOLD);
+  public static final String WARN_PRODUCT_AMOUNT_TOO_SMALL = String.format("Warning: minimum preferable product amount in a single order is %s.", THRESHOLD_MINIMUM);
 
 
 	@Override
@@ -51,6 +52,7 @@ public class ProductAmountForOrderValidator extends AbstractBeforeChangeEventHan
 //			}
 
 		final List<OrderItem> items = co(OrderItem.class).getAllEntities(qem);
+    
 		if ((items.size() + 1) > THRESHOLD) {
 			return Result.failure(ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD);
 		}
