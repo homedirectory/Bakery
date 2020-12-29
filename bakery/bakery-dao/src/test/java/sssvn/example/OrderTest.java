@@ -11,7 +11,7 @@ import org.junit.Test;
 import sssvn.location.Location;
 import sssvn.order.Order;
 import sssvn.order.OrderCo;
-import sssvn.order.validators.DifferentLocationsValidatorFrom;
+import sssvn.order.validators.DifferentLocationsValidatorTo;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Person;
@@ -40,11 +40,11 @@ public class OrderTest extends AbstractDaoTestCase {
 
         order.setLocationTo(loc);
 
-        final MetaProperty<Location> mp = order.getProperty("locationFrom");
+        final MetaProperty<Location> mp = order.getProperty("locationTo");
 
         assertFalse(mp.isDirty());
-      
-        assertEquals(DifferentLocationsValidatorFrom.SAME_LOC_NOT_PERMITTED, mp.getFirstFailure().getMessage());     
+
+        assertEquals(DifferentLocationsValidatorTo.SAME_LOC_NOT_PERMITTED, mp.getFirstFailure().getMessage());
 
     }
 
