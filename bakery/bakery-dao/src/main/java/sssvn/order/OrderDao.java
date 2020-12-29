@@ -31,8 +31,8 @@ public class OrderDao extends CommonEntityDao<Order> implements OrderCo {
 
     @Override
     public Order new_() {
-
-        return super.new_().setOrderNo(DEFAULT_ORDER_NUMBER_KEY);
+        
+        return super.new_().setOrderNo(DEFAULT_ORDER_NUMBER_KEY).setActive(true);
     }
 
     @Override
