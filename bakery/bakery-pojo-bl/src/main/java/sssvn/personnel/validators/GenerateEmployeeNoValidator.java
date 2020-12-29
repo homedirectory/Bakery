@@ -12,17 +12,17 @@ import ua.com.fielden.platform.error.Result;
 
 public class GenerateEmployeeNoValidator extends AbstractBeforeChangeEventHandler<Boolean> {
 	
+
 	
-    
-    private static final String ERR_REMOVAL_OF_EMPLOYEE_NO = "Employee number was generated once and cannot be removed.";
+	private static final String WARN_GENERATING_EMPLOYEE_NO = "Once employee no has been set, it cannot be removed.";
 
 	@Override
     public Result handle(MetaProperty<Boolean> property, Boolean generateEmployeeNo, Set<Annotation> mutatorAnnotations) {
         
     	Person person = property.getEntity();
     	
-    	if (person.isEmployee() && !generateEmployeeNo) {
-    		return Result.failure(ERR_REMOVAL_OF_EMPLOYEE_NO);
+    	if (!person.isEmployee() && generateEmployeeNo) {
+    		return Result.warning(WARN_GENERATING_EMPLOYEE_NO);
     	}
     	
         return Result.successful(generateEmployeeNo);

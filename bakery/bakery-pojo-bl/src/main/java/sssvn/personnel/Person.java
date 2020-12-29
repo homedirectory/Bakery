@@ -92,7 +92,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
 	@MapTo
 	@Title(value = "Generate Employee No?", desc = "Indicates whether to generate employee no")
-//    @BeforeChange(@Handler(GenerateEmployeeNoValidator.class))
+    @BeforeChange(@Handler(GenerateEmployeeNoValidator.class))
     @AfterChange(GenerateEmployeeNoDefiner.class)
 	private boolean generateEmployeeNo;
 
