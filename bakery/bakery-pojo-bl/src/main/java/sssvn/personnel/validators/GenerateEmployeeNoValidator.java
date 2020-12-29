@@ -14,15 +14,15 @@ public class GenerateEmployeeNoValidator extends AbstractBeforeChangeEventHandle
 	
 	
     
-    private static final String ERR_CURR_EMPLOYED_PERSON_BECOMING_NON_EMPLOYEE = "This person is currently employed";
+    private static final String ERR_REMOVAL_OF_EMPLOYEE_NO = "Employee number was generated once and cannot be removed.";
 
 	@Override
     public Result handle(MetaProperty<Boolean> property, Boolean generateEmployeeNo, Set<Annotation> mutatorAnnotations) {
         
     	Person person = property.getEntity();
     	
-    	if (!generateEmployeeNo && person.getCurrEmployment() != null) {
-    		return Result.failure(ERR_CURR_EMPLOYED_PERSON_BECOMING_NON_EMPLOYEE);
+    	if (person.isEmployee() && !generateEmployeeNo) {
+    		return Result.failure(ERR_REMOVAL_OF_EMPLOYEE_NO);
     	}
     	
         return Result.successful(generateEmployeeNo);

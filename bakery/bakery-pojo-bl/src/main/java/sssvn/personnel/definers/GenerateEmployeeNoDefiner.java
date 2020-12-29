@@ -25,10 +25,6 @@ public class GenerateEmployeeNoDefiner extends AbstractAfterChangeEventHandler<B
 			person.setEmployeeNo(String.format(keyPattern, next));
         }
         
-        else if (!generateEmployeeNo) {
-        	person.setEmployeeNo("");
-        }
-        
     }
 
 }
