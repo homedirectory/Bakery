@@ -2,6 +2,7 @@ package sssvn.personnel;
 
 import java.util.Date;
 
+import sssvn.personnel.validators.EmploymentEmployeeValidator;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -19,6 +20,8 @@ import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Readonly;
 import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
+import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.entity.validation.annotation.GeProperty;
 import ua.com.fielden.platform.entity.validation.annotation.LeProperty;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
@@ -56,6 +59,7 @@ public class Employment extends AbstractPersistentEntity<DynamicEntityKey> {
    	@MapTo
    	@Title(value = "Employee", desc = "Employee under this contract.")
     @Required
+    @BeforeChange(@Handler(EmploymentEmployeeValidator.class))
    	private Person employee;
     
     @IsProperty
