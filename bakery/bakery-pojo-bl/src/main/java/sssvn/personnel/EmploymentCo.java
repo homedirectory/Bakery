@@ -13,7 +13,6 @@ import ua.com.fielden.platform.dao.IEntityDao;
 public interface EmploymentCo extends IEntityDao<Employment> {
 
     static final IFetchProvider<Employment> FETCH_PROVIDER = EntityUtils.fetch(Employment.class).with(
-    		"key", "desc", "employee", "employee.employeeNo", "employee.currEmployment", "employee.currEmployment.startDate",
-    		"employee.currEmployment.finishDate", "startDate", "finishDate", "contractDocument", "salary");
+    		"key", "desc", "employee", "employee.employeeNo", "employee.currEmployment", "startDate", "finishDate", "contractDocument", "salary");
 
 }

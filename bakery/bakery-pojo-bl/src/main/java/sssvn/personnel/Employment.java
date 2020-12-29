@@ -3,6 +3,7 @@ package sssvn.personnel;
 import java.util.Date;
 
 import sssvn.personnel.validators.EmploymentEmployeeValidator;
+import sssvn.personnel.validators.EmploymentFinishDateValidator;
 import sssvn.personnel.validators.EmploymentStartDateValidator;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
@@ -61,6 +62,7 @@ public class Employment extends AbstractPersistentEntity<DynamicEntityKey> {
    	@Title(value = "Employee", desc = "Employee under this contract.")
     @Required
     @BeforeChange(@Handler(EmploymentEmployeeValidator.class))
+    @Dependent({"startDate", "finishDate"})
    	private Person employee;
     
     @IsProperty
@@ -75,6 +77,7 @@ public class Employment extends AbstractPersistentEntity<DynamicEntityKey> {
 	@IsProperty
 	@MapTo
 	@DateOnly
+	@Required
 	@Dependent("startDate")
 	@Title(value = "Finish Date", desc = "Date indicating the end of employment period")
 	@BeforeChange(@Handler(EmploymentFinishDateValidator.class))
