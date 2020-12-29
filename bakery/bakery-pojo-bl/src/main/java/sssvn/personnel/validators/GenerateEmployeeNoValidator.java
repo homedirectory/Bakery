@@ -14,12 +14,16 @@ public class GenerateEmployeeNoValidator extends AbstractBeforeChangeEventHandle
 	
 	
     
-    @Override
+    private static final String ERR_CURR_EMPLOYED_PERSON_BECOMING_NON_EMPLOYEE = "This person is currently employed";
+
+	@Override
     public Result handle(MetaProperty<Boolean> property, Boolean generateEmployeeNo, Set<Annotation> mutatorAnnotations) {
         
     	Person person = property.getEntity();
     	
-    	
+    	if (!generateEmployeeNo && person.getCurrEmployment() != null) {
+    		return Result.failure(ERR_CURR_EMPLOYED_PERSON_BECOMING_NON_EMPLOYEE);
+    	}
     	
         return Result.successful(generateEmployeeNo);
     }
