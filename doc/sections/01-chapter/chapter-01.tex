@@ -145,5 +145,106 @@ To save the entered information you need to click on the ‘Save’ button.
 
 To cancel the process and close the form to click on the ‘Cancel' button.
 
+\subsection{Location}
 
+The Location Entity represents a location where a bakery has one of its either distributing or production points. 
+
+One can search through the list of register Location using the following fields:
+
+- Location → the address of the Location
+
+- Description → optional field, the description of the certain Location 
+
+- Country of Location
+
+- City of Location
+
+- Address of Location
+
+- Phone number on a Location
+
+- Range of employee amount
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/location1.png}\\
+
+For the registration of a new Location one should run the search and then press the + sign:
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/location2.png}\\
+
+The Entity depends on a variety of required information. The mandatory fields are highlighted blue and include:
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/location3.png}\\
+
+- Country of the location → Required, String
+
+- City → Required, String
+
+- Address → Required, String that represents street and house number
+
+- Phone → Required, String that represents the phone number of the location, letters are not permitted to be types in this field
+
+- Employees amount → Required, Number that represents number of employees on the location
+
+- Working hours → Required, String that represents the working hours of a location
+
+The additional optional field is the description.
+
+\subsection{Product}
+
+Product represents a good which is produced and sold by the bakery.
+
+To search for a Product one can select the following search criteria:
+
+- Product, which is the name of the product
+
+- Description of the product
+
+- Price range of the products
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/product1.png}\\
+
+As a system user aka Manager, to register a new product you need to press the plus button and add the product using the following fields:
+
+- Name → required, String, name of the product, cannot contain any numbers.
+
+- Description → optional, String
+
+- Price → required, Money
+
+- Recipe → Optional, String
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/product2.png}
+
+\subsection{Order}
+
+The list of Orders is located as the rest of the entities -- in the left panel menu. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order1.png}
+
+The needed Order can be found by two criteria that characterize the Order : 
+
+- orderNo → string that represents the order code number in the format ‘ORD-ХХХХХХХ’. By default it is automatically generated, but can be set up by User during man
+
+- Carrier → String that represents the initials of a  Carrier
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order2.png}
+
+The list of available orders in the System will be displayed as following:
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order3.png}
+
+Order has four coulmns which are the properties:
+
+- OrderNo
+
+- LocationFrom → the location from which the order will be delivered
+
+- LocationTo → the location to which the order will be delivered
+
+- Carrier → a person in the carrier position who will be responsible for delivering an order.
+
+During the adding of new Order the list of available Locations to choose from will be proposed. The Carrier can be chosen from the list of available Carriers in the system.
+Important things: The LocationFrom and LocationTo fields cannot be the same.
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order4.png}
 
