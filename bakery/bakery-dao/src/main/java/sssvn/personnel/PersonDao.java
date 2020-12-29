@@ -1,22 +1,23 @@
 package sssvn.personnel;
 
 import static java.lang.String.format;
+import static org.apache.logging.log4j.LogManager.getLogger;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.fetch;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.fetchAll;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.from;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
-import static org.apache.logging.log4j.LogManager.getLogger;
-import org.apache.logging.log4j.Logger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.logging.log4j.Logger;
+
 import com.google.inject.Inject;
 
+import sssvn.security.tokens.persistent.Person_CanDelete_Token;
 import sssvn.security.tokens.persistent.Person_CanModify_user_Token;
 import sssvn.security.tokens.persistent.Person_CanSave_Token;
-import sssvn.security.tokens.persistent.Person_CanDelete_Token;
-
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.dao.annotations.SessionRequired;
 import ua.com.fielden.platform.entity.annotation.EntityType;
@@ -37,7 +38,7 @@ import ua.com.fielden.platform.security.user.User;
  */
 @EntityType(Person.class)
 public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
-
+	
     private static final Logger LOGGER = getLogger(PersonDao.class);
 
     @Inject
@@ -47,7 +48,7 @@ public class PersonDao extends CommonEntityDao<Person> implements PersonCo {
 
     @Override
     public Person new_() {
-        return super.new_().setActive(true);
+        return super.new_().setActive(true).setGenerateEmployeeNo(false);
     }
 
     @Override
