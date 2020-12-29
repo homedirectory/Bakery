@@ -16,7 +16,7 @@ import sssvn.product.Product;
 import sssvn.order.Order;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
-
+import sssvn.order.OrderItem;
 
 /**
  * A class to register domain entities.
@@ -33,10 +33,11 @@ public class ApplicationDomain implements IApplicationDomainProvider {
 		add(Person.class);
 		add(Manager.class);
 		add(Product.class);
-    add(Location.class);
+		add(Location.class);
 		add(Carrier.class);
 		add(Order.class);
 		add(Employment.class);
+		add(OrderItem.class);
 	}
 
 	private static void add(final Class<? extends AbstractEntity<?>> domainType) {
