@@ -2,13 +2,12 @@ package sssvn.config.personnel;
 
 import static sssvn.common.LayoutComposer.CELL_LAYOUT;
 import static sssvn.common.LayoutComposer.MARGIN;
-import static sssvn.common.LayoutComposer.*;
+import static sssvn.common.LayoutComposer.PADDING_LAYOUT;
+import static sssvn.common.LayoutComposer.mkActionLayoutForMaster;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_SHORT_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_SHORT_DESC;
-
-import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
 import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
 
 import java.util.Optional;
@@ -17,18 +16,18 @@ import com.google.inject.Injector;
 
 import sssvn.common.StandardActions;
 import sssvn.main.menu.personnel.MiPerson;
+import sssvn.personnel.Employment;
 import sssvn.personnel.Person;
+import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
 import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
 import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
-import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
 import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
-import ua.com.fielden.platform.web.view.master.api.compound.Compound;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 
 /**
@@ -98,10 +97,11 @@ public class PersonWebUiConfig {
                     .withAction(standardEditAction).also()
                 .addProp("desc").minWidth(200).also()
                 .addProp("title").minWidth(200).also()
+                .addProp("employeeNo").minWidth(70).also()
+                .addProp("currEmployment").minWidth(100).also()
                 .addProp("aManager").minWidth(70).also()
                 .addProp("manager").minWidth(70).also()
                 .addProp("carrier").minWidth(70).also()
-                .addProp("employeeNo").minWidth(70).also()
                 .addProp("phone").minWidth(70).also()
                 .addProp("email").minWidth(70)
                 .addPrimaryAction(standardEditAction)
