@@ -46,7 +46,7 @@ public class EmploymentStartDateValidator extends AbstractBeforeChangeEventHandl
 		
 		List<Employment> employmentList = co(Employment.class).getAllEntities(qem);
 
-		employmentList.forEach(emp -> System.out.printf("Employment: %s, Person: %s, Contract no: %s\n", emp, emp.getEmployee(), emp.getContractNo()));
+//		employmentList.forEach(emp -> System.out.printf("Employment: %s, Person: %s, Contract no: %s\n", emp, emp.getEmployee(), emp.getContractNo()));
 		
 		for (int i = 0; i < employmentList.size(); i++) {
 			final Employment emp = employmentList.get(i);
