@@ -3,6 +3,7 @@ package sssvn.personnel;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.expr;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
+import sssvn.personnel.definers.ManagerNonRequirednessForCarrierDefiner;
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;
 import sssvn.personnel.validators.EmployeeCarrierSettingValidator;
 import sssvn.personnel.validators.EmployeeManagerSettingValidator;
@@ -131,6 +132,7 @@ public class Person extends ActivatableAbstractEntity<DynamicEntityKey> {
 	@MapTo
 	@Title(value = "Carrier?", desc = "Indicates personnel in the carrier role.")
     @BeforeChange({@Handler(EmployeeCarrierSettingValidator.class)})
+    @AfterChange(ManagerNonRequirednessForCarrierDefiner.class)
 	private boolean carrier;
 
     @Override
