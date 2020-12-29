@@ -62,7 +62,7 @@ public class EmploymentFinishDateValidator extends AbstractBeforeChangeEventHand
 			
 			final Date startDate = employment.getStartDate();
 			
-			if (startDate != null && startDate.compareTo(currStartDate) <= 0 && finishDate.compareTo(currFinishDate) >= 0) {
+			if (startDate != null && startDate.compareTo(currStartDate) <= 0 && finishDate != null && finishDate.compareTo(currFinishDate) >= 0) {
 				return Result.failure(EmploymentStartDateValidator.ERR_EMPLOYEE_CURR_EMPLOYMENT_INTERSECTION);
 			}
 		}
