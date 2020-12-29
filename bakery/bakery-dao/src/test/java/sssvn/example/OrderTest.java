@@ -92,47 +92,41 @@ public class OrderTest extends AbstractDaoTestCase {
 		assertTrue(ERR_THE_SAME_PRODUCT.equals("An error occured. The product that was already added cannot be added to order again."));
     }
     
-//    @Test
-//    public void the_order_cannot_contain_more_than_thrashold_amount_of_products() {
-//    	final Order order1 = co(Order.class).findByKeyAndFetch(OrderCo.FETCH_PROVIDER.fetchModel(), "123");
-//		final Product product1 = co(Product.class).findByKeyAndFetch(ProductCo.FETCH_PROVIDER.fetchModel(), "Croissant");
-//		
-//		final Order order2 = co(Order.class).findByKeyAndFetch(OrderCo.FETCH_PROVIDER.fetchModel(), "124");
-//		final Product product2 = co(Product.class).findByKeyAndFetch(ProductCo.FETCH_PROVIDER.fetchModel(), "Cake");
-//        
-//        final Product product3 = save(new_(Product.class).setName("Croissant with chocolate").setPrice(Money.of("15.00")).setRecipe("Flour, sugar").setActive(true));
-//        final Product product4 = save(new_(Product.class).setName("Croissant with condensed milk").setPrice(Money.of("17.00")).setRecipe("Flour, sugar").setActive(true));
-//        final Product product5 = save(new_(Product.class).setName("Napoleon").setPrice(Money.of("34.00")).setRecipe("Flour, sugar").setActive(true));
-//        final Product product6 = save(new_(Product.class).setName("Ecler").setPrice(Money.of("5.00")).setRecipe("Flour, sugar").setActive(true));
-//        final Product product7 = save(new_(Product.class).setName("Ecler sweet").setPrice(Money.of("6.00")).setRecipe("Flour, sugar").setActive(true));
-//        
-//        save(new_(OrderItem.class).setOrder(order1).setProduct(product1).setQuantity(11));
-//        save(new_(OrderItem.class).setOrder(order1).setProduct(product3).setQuantity(11));
-//        save(new_(OrderItem.class).setOrder(order1).setProduct(product4).setQuantity(11));
-//        save(new_(OrderItem.class).setOrder(order1).setProduct(product5).setQuantity(11));
-//		OrderItem oi1 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product1);
-//		OrderItem oi2 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product3);
-//		OrderItem oi3 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product4);
-//		OrderItem oi4 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product5);
-//
-//        OrderItem oi5 = save(new_(OrderItem.class).setOrder(order1).setProduct(product6).setQuantity(11));
-//        OrderItem oi6 = save(new_(OrderItem.class).setOrder(order1).setProduct(product7).setQuantity(11));
-//        
-////		OrderItem oi1 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product1);
-////		OrderItem oi2 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product2);
-////		OrderItem oi3 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product3);
-////		OrderItem oi4 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product4);
-////		OrderItem oi5 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product5);
-////		OrderItem oi6 = co$(OrderItem.class).findByKeyAndFetch(OrderItemCo.FETCH_PROVIDER.fetchModel(), order1, product6);
-////		
-////		person.setInitials("N T");
-//
-////        final MetaProperty<String> mp = oi6.getProperty("product");
-////        System.out.println(mp.getValue());
-//////        assertFalse(mp.isDirty());
-////        assertEquals(ProductAmountForOrderValidator.ERR_PRODUCT_AMOUNT_EXCEEDS_THRASHOLD, mp.getFirstFailure().getMessage());
-//		
-//    }
+    @Test
+    public void the_order_cannot_contain_more_than_thrashold_amount_of_products() {
+    	final Order order1 = co(Order.class).findByKeyAndFetch(OrderCo.FETCH_PROVIDER.fetchModel(), "123");
+		final Product product1 = co(Product.class).findByKeyAndFetch(ProductCo.FETCH_PROVIDER.fetchModel(), "Croissant");
+		
+		final Order order2 = co(Order.class).findByKeyAndFetch(OrderCo.FETCH_PROVIDER.fetchModel(), "124");
+		final Product product2 = co(Product.class).findByKeyAndFetch(ProductCo.FETCH_PROVIDER.fetchModel(), "Cake");
+        
+        final Product product3 = save(new_(Product.class).setName("Croissant with chocolate").setPrice(Money.of("15.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product4 = save(new_(Product.class).setName("Croissant with condensed milk").setPrice(Money.of("17.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product5 = save(new_(Product.class).setName("Napoleon").setPrice(Money.of("34.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product6 = save(new_(Product.class).setName("Ecler").setPrice(Money.of("5.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product7 = save(new_(Product.class).setName("Ecler sweet").setPrice(Money.of("6.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product8 = save(new_(Product.class).setName("Chocolate Mousse").setPrice(Money.of("17.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product9 = save(new_(Product.class).setName("Ice cream").setPrice(Money.of("23.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product10 = save(new_(Product.class).setName("Apple pie").setPrice(Money.of("12.00")).setRecipe("Flour, sugar").setActive(true));
+        final Product product11 = save(new_(Product.class).setName("Spartak").setPrice(Money.of("70.00")).setRecipe("Flour, sugar").setActive(true));
+
+        
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product1).setQuantity(11L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product3).setQuantity(2L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product4).setQuantity(17L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product5).setQuantity(7L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product6).setQuantity(21L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product7).setQuantity(6L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product8).setQuantity(18L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product9).setQuantity(56L));
+        save(new_(OrderItem.class).setOrder(order1).setProduct(product10).setQuantity(13L));
+        
+        OrderItem oi1 = new_(OrderItem.class).setOrder(order1).setProduct(product11).setQuantity(13L);
+        
+        final MetaProperty<String> mp = oi1.getProperty("product");
+        assertEquals(ProductAmountForOrderValidator.ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD, mp.getFirstFailure().getMessage());
+		
+    }
 
     @Override
     public boolean saveDataPopulationScriptToFile() {
