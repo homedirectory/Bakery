@@ -102,7 +102,7 @@ public class ProductWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Product> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 1);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(1,1, 2);
 
         final IMaster<Product> masterConfig = new SimpleMasterBuilder<Product>().forEntity(Product.class)
                 .addProp("name").asSinglelineText().also()
