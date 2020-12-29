@@ -1,22 +1,18 @@
 package sssvn.config.personnel;
 
-import static sssvn.common.LayoutComposer.CELL_LAYOUT;
-import static sssvn.common.LayoutComposer.MARGIN;
-import static sssvn.common.LayoutComposer.PADDING_LAYOUT;
 import static sssvn.common.LayoutComposer.mkActionLayoutForMaster;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_CANCEL_ACTION_SHORT_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_LONG_DESC;
 import static sssvn.common.StandardActionsStyles.MASTER_SAVE_ACTION_SHORT_DESC;
-import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
+import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
 import sssvn.main.menu.personnel.MiPerson;
-import sssvn.personnel.Employment;
 import sssvn.personnel.Person;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -63,11 +59,7 @@ public class PersonWebUiConfig {
      * @return
      */
     private EntityCentre<Person> createPersonCentre(final IWebUiBuilder builder) {
-        final String layout = cell(
-                cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))  // row 1 -> 1, 2
-                .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), // row 2 -> 3, 4
-               PADDING_LAYOUT).toString();
+        final String layout = LayoutComposer.mkVarGridForCentre(2, 2, 2);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Person.class);
         final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Person.class);
@@ -87,6 +79,7 @@ public class PersonWebUiConfig {
                 // row 2
                 .addCrit("manager").asMulti().bool().also()
                 .addCrit("carrier").asMulti().bool().also()
+                // row 3
                 .addCrit("employeeNo").asMulti().text().also()
                 .addCrit("title").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
@@ -111,14 +104,7 @@ public class PersonWebUiConfig {
     }
 
     private EntityMaster<Person> createPersonMaster() {
-        final String layout = cell(
-                cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)),
-               PADDING_LAYOUT).toString();
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 1, 2, 1, 2, 2, 2);
 
         final IMaster<Person> masterConfig = new SimpleMasterBuilder<Person>().forEntity(Person.class)
                 // row 1
@@ -128,14 +114,16 @@ public class PersonWebUiConfig {
                 .addProp("desc").asMultilineText().also()
                 // row 3
                 .addProp("employeeNo").asSinglelineText().also()
-                .addProp("title").asSinglelineText().also()
+                .addProp("generateEmployeeNo").asCheckbox().also()
                 // row 4
+                .addProp("title").asSinglelineText().also()
+                // row 5
                 .addProp("aManager").asAutocompleter().also()
                 .addProp("manager").asCheckbox().also()
-                // row 5
+                // row 6
                 .addProp("carrier").asCheckbox().also()
                 .addProp("phone").asSinglelineText().also()
-                // row 6
+                // row 7
                 .addProp("email").asSinglelineText().also()
                 .addProp("user").asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc(MASTER_CANCEL_ACTION_SHORT_DESC).longDesc(MASTER_CANCEL_ACTION_LONG_DESC)

@@ -19,6 +19,11 @@ public class ProductDao extends CommonEntityDao<Product> implements ProductCo {
     public ProductDao(final IFilter filter) {
         super(filter);
     }
+    
+    @Override
+    public Product new_() {
+        return super.new_().setActive(true);
+    }
 
     @Override
     protected IFetchProvider<Product> createFetchProvider() {

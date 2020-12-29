@@ -14,7 +14,7 @@ import ua.com.fielden.platform.dao.IEntityDao;
 public interface ProductCo extends IEntityDao<Product> {
 
     static final IFetchProvider<Product> FETCH_PROVIDER = EntityUtils.fetch(Product.class)
-            .with("name", "description", "price", "recipe");
+            .with("name", "desc", "price", "recipe");
     
 
 }
