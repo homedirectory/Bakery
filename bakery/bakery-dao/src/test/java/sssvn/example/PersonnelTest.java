@@ -187,6 +187,24 @@ public class PersonnelTest extends AbstractDaoTestCase {
     	assertTrue(carrier.isPresent());
     	assertEquals(savedPerson, carrier.get().getPerson());
     }
+    
+    @Test
+    public void carrier_does_not_require_manager() {
+        final Person person = co$(Person.class).findByKeyAndFetch(PersonCo.FETCH_PROVIDER.fetchModel(), "RMD");
+        
+        person.setEmployeeNo("12312312");
+        person.setTitle("carrier");
+        person.setCarrier(true);
+        
+        final MetaProperty<Person> mpManager = person.getProperty("aManager");
+        
+        
+        assertFalse(mpManager.isRequired());
+        
+        person.setCarrier(false);
+        assertTrue(mpManager.isRequired());
+        
+    }
 
 
     /**
