@@ -1,9 +1,9 @@
 package sssvn.order;
 
 import sssvn.location.Location;
-import sssvn.order.validators.DifferentLocationsValidator;
+import sssvn.order.validators.DifferentLocationsValidatorFrom;
+import sssvn.order.validators.DifferentLocationsValidatorTo;
 import sssvn.personnel.Carrier;
-import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -54,7 +54,7 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "locationFrom", desc = "Location where the Carrier would take the goods")
-    @BeforeChange(@Handler(DifferentLocationsValidator.class))
+    @BeforeChange(@Handler(DifferentLocationsValidatorFrom.class))
     @Dependent({"locationTo"})
     @Required
     private Location locationFrom;
@@ -62,7 +62,7 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "locationTo", desc = "Location where the Carrier bring the goods")
-    @BeforeChange(@Handler(DifferentLocationsValidator.class))
+    @BeforeChange(@Handler(DifferentLocationsValidatorTo.class))
     @Dependent({"locationFrom"})
     @Required
     private Location locationTo;

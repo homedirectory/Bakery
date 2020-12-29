@@ -10,7 +10,7 @@ import ua.com.fielden.platform.entity.meta.impl.AbstractBeforeChangeEventHandler
 import ua.com.fielden.platform.error.Result;
 import ua.com.fielden.platform.utils.EntityUtils;
 
-public class DifferentLocationsValidator extends AbstractBeforeChangeEventHandler<Location> {
+public class DifferentLocationsValidatorFrom extends AbstractBeforeChangeEventHandler<Location> {
 	
     public static final String SAME_LOC_NOT_PERMITTED = "Order can not have same locationFrom and locationTo";
     
@@ -19,14 +19,17 @@ public class DifferentLocationsValidator extends AbstractBeforeChangeEventHandle
         
         final Order order = property.getEntity();
         
-        if (order.getLocationFrom() != null && order.getLocationTo() != null) {
+        
+        final Location oppositeloc = order.getLocationTo();
+        
+        System.out.printf("LocationTo: %s", oppositeloc);
+        
        
-            if (EntityUtils.equalsEx(order.getLocationFrom().getAddress(), order.getLocationTo().getAddress())) {
-                return Result.failure(SAME_LOC_NOT_PERMITTED);
-            }
+        if (EntityUtils.equalsEx(locationFrom, oppositeloc)) {
+            return Result.failure(SAME_LOC_NOT_PERMITTED);
         }
-        
-        
+    
+       
         return Result.successful(order);
     }
 
