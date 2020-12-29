@@ -3,7 +3,7 @@ package sssvn.order;
 import java.lang.annotation.Target;
 
 import sssvn.order.Order;
-//import sssvn.order.validators.ProductAmountForOrderValidator;
+import sssvn.order.validators.ProductAmountForOrderValidator;
 import sssvn.product.Product;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
@@ -56,7 +56,7 @@ public class OrderItem extends AbstractPersistentEntity<DynamicEntityKey> {
     @Required
     @Title(value = "Product", desc = "A product which is included into Order.")
     @CompositeKeyMember(2)
-//    @BeforeChange(@Handler(ProductAmountForOrderValidator.class))
+    @BeforeChange(@Handler(ProductAmountForOrderValidator.class))
     private Product product;
     
     @IsProperty
