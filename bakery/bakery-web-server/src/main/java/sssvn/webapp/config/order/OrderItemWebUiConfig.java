@@ -62,8 +62,11 @@ public class OrderItemWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<OrderItem> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(1, 2);
-
+    	 final String layout = cell(
+                 cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)) 
+                .cell(cell().layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), 
+                PADDING_LAYOUT).toString();
+    	 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(OrderItem.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(OrderItem.class);
         final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(OrderItem.class);
@@ -75,7 +78,8 @@ public class OrderItemWebUiConfig {
                 .addTopAction(standardNewAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("order").asMulti().autocompleter(Order.class).also()
-                .addCrit("product").asMulti().autocompleter(Product.class)
+                .addCrit("product").asMulti().autocompleter(Product.class).also()
+                .addCrit("quantity").asRange().integer()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)

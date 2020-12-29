@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 import org.hibernate.dialect.Dialect;
@@ -14,13 +15,18 @@ import org.apache.logging.log4j.Logger;
 
 import sssvn.config.ApplicationDomain;
 import sssvn.location.Location;
+import sssvn.order.Order;
+import sssvn.order.OrderItem;
+import sssvn.personnel.Carrier;
+import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Person;
-
+import sssvn.product.Product;
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.persistence.HibernateUtil;
 import ua.com.fielden.platform.security.user.User;
 import ua.com.fielden.platform.test.IDomainDrivenTestCaseConfiguration;
+import ua.com.fielden.platform.types.Money;
 import ua.com.fielden.platform.utils.DbUtils;
 
 /**
@@ -79,6 +85,7 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         setupUser(User.system_users.SU, "sssvn");
         setupPerson(User.system_users.SU, "sssvn");
         setupLocation("Ukraine", "Lviv", "Kozelnytska 2a", 33L, "+380987654321", "8:00 - 22:00", "Morning croissant bakery point.");
+  
 
         LOGGER.info("Completed database creation and population.");
 	}
@@ -87,6 +94,7 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         final User su = co(User.class).findByKey(defaultUser.name());
         save(new_(Person.class).setInitials(defaultUser.name()).setActive(true).setUser(su).setDesc("Person who is a user").setEmail(defaultUser + "@" + emailDomain));
     }
+    
     
     private void setupLocation(final String country, final String city, final String address, final Long employeeAmount, final String phone, final String workingHours, final String desc) {
         save(new_(Location.class).setCountry(country).setCity(city).setAddress(address).setEmployeesAmount(employeeAmount).setPhone(phone).setWorkingHours(workingHours).setDesc(desc));

@@ -30,37 +30,35 @@ import ua.com.fielden.platform.entity.meta.impl.AbstractBeforeChangeEventHandler
 import ua.com.fielden.platform.error.Result;
 
 public class ProductAmountForOrderValidator extends AbstractBeforeChangeEventHandler<Product> {
-	public static final Integer THRASHOLD = 5;
-	public static final Integer THRASHOLD_MINIMUM = 3;
-    public static final String ERR_PRODUCT_AMOUNT_EXCEEDS_THRASHOLD = "Number of products added exceeds the maximum amount of 5 items in a single order.";
-    public static final String WARN_PRODUCT_AMOUNT_TOO_SMALL = "Warning: product amount in a single order is too small.";
+	public static final Integer THRESHOLD = 10;
+	public static final Integer THRESHOLD_MINIMUM = 3;
+    public static final String ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD = String.format("Number of products added exceeds the maximum amount of %s items in a single order.", THRESHOLD);
+    public static final String WARN_PRODUCT_AMOUNT_TOO_SMALL = String.format("Warning: minimum preferable product amount in a single order is %s.", THRESHOLD_MINIMUM);
 
 
 	@Override
 	public Result handle(MetaProperty<Product> property, Product product, Set<Annotation> mutatorAnnotations) {
 		OrderItem orderItem = property.getEntity();
-		
+
 		final EntityResultQueryModel<OrderItem> query = select(OrderItem.class).where().prop("order").eq().val(orderItem.getOrder()).model();
 		final fetch<OrderItem> fetch = fetch(OrderItem.class).with("order", "product", "quantity").fetchModel();
 		final OrderingModel orderBy = orderBy().prop("order.locationFrom").asc().prop("order.locationTo").asc().model();
 		final QueryExecutionModel<OrderItem, EntityResultQueryModel<OrderItem>> qem = from(query).with(fetch).with(orderBy).model();
-		
-		try (final Stream<OrderItem> items = co(OrderItem.class).stream(qem)) {
-			items.forEach(item -> System.out.printf("Order: %s, Product: %s, Quantity: %s%n", 
-					item.getOrder(), item.getProduct(), item.getQuantity()));		
-			}
-				
-		final List<OrderItem> items = co(OrderItem.class).getAllEntities(qem);
-		System.out.println(items.size());
 
-		if (items.size() > THRASHOLD) {
-			return Result.failure(ERR_PRODUCT_AMOUNT_EXCEEDS_THRASHOLD);
+//		try (final Stream<OrderItem> items = co(OrderItem.class).stream(qem)) {
+//			items.forEach(item -> System.out.printf("Order: %s, Product: %s, Quantity: %s%n", 
+//					item.getOrder(), item.getProduct(), item.getQuantity()));		
+//			}
+
+		final List<OrderItem> items = co(OrderItem.class).getAllEntities(qem);
+		if ((items.size() + 1) > THRESHOLD) {
+			return Result.failure(ERR_PRODUCT_AMOUNT_EXCEEDS_THRESHOLD);
 		}
-		else if (items.size() < THRASHOLD_MINIMUM) {
+		else if ((items.size() + 1) < THRESHOLD_MINIMUM) {
 			return Result.warning(WARN_PRODUCT_AMOUNT_TOO_SMALL);
 		}
-		
+
 		return Result.successful(product);
 	}
 
-}
+} 
