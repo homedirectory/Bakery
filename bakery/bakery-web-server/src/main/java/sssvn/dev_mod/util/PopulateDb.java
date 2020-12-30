@@ -20,7 +20,7 @@ import sssvn.logistics.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Person;
-import sssvn.product.Product;
+import sssvn.production.Product;
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.persistence.HibernateUtil;

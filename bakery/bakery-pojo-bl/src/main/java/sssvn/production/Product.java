@@ -1,4 +1,4 @@
-package sssvn.product;
+package sssvn.production;
 
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;

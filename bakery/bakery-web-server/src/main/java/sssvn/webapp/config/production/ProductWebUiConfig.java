@@ -1,4 +1,4 @@
-package sssvn.webapp.config.product;
+package sssvn.webapp.config.production;
 
 import static java.lang.String.format;
 import static sssvn.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
@@ -7,10 +7,9 @@ import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import sssvn.product.Product;
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
-
+import sssvn.main.menu.production.MiProduct;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
@@ -20,7 +19,7 @@ import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-import sssvn.main.menu.product.MiProduct;
+import sssvn.production.Product;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;

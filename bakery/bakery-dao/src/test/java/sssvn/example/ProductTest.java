@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import sssvn.product.Product;
-import sssvn.product.ProductCo;
+import sssvn.production.Product;
+import sssvn.production.ProductCo;
 import sssvn.test_config.AbstractDaoTestCase;
 import sssvn.test_config.UniversalConstantsForTesting;
 import ua.com.fielden.platform.entity.meta.MetaProperty;

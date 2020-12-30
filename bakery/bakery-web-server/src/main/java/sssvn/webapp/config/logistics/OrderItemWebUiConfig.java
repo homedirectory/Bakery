@@ -11,7 +11,7 @@ import java.util.Optional;
 import com.google.inject.Injector;
 
 import sssvn.personnel.Carrier;
-import sssvn.product.Product;
+import sssvn.production.Product;
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
 import sssvn.logistics.Location;

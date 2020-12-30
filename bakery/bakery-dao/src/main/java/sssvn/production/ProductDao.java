@@ -1,7 +1,9 @@
-package sssvn.product;
+package sssvn.production;
 
 import com.google.inject.Inject;
 
+import sssvn.production.Product;
+import sssvn.production.ProductCo;
 import ua.com.fielden.platform.entity.fetch.IFetchProvider;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.entity.query.IFilter;
