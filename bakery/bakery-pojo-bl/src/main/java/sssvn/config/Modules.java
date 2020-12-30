@@ -30,7 +30,7 @@ public enum Modules {
             LogisticsModuleToken.class,
             "sssvn.logistics"),
     PRODUCTION("Production", "A module to manage company's production.",
-            "mainMenu:production", "#ff9800", "#c66900",
+            "mainMenu:equipment", "#ff9800", "#c66900",
             ProductionModuleToken.class,
             "sssvn.production"),
     OTHER("Other", "Entities that have not been or cannot be classified as belonging to one specific module.",

@@ -70,13 +70,11 @@ public class LocationWebUiConfig {
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Location.class);
         final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Location.class);
         builder.registerOpenMasterAction(Location.class, standardEditAction);
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Location.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Location.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
         final EntityCentreConfig<Location> ecc = EntityCentreBuilder.centreFor(Location.class)
                 .addTopAction(standardNewAction).also()
-                .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("this").asMulti().autocompleter(Location.class).also()
