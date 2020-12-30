@@ -85,14 +85,15 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         setupUser(User.system_users.SU, "sssvn");
         setupPerson(User.system_users.SU, "sssvn");
         setupLocation("Ukraine", "Lviv", "Kozelnytska 2a", 33L, "+380987654321", "8:00 - 22:00", "Morning croissant bakery point.");
-  
+        setupLocation("Ukraine", "Lviv", "Mechnikova 2a", 33L, "+380987254321", "8:00 - 22:00", "Morning croissant bakery point.");
+        save(new_(Product.class).setName("Banana").setPrice(Money.of("5.00")));
 
         LOGGER.info("Completed database creation and population.");
 	}
 
     private void setupPerson(final User.system_users defaultUser, final String emailDomain) {
         final User su = co(User.class).findByKey(defaultUser.name());
-        save(new_(Person.class).setInitials(defaultUser.name()).setActive(true).setUser(su).setDesc("Person who is a user").setEmail(defaultUser + "@" + emailDomain));
+        save(new_(Person.class).setInitials(defaultUser.name()).setActive(true).setUser(su).setDesc("Person who is a user").setEmail(defaultUser + "@" + emailDomain).setGenerateEmployeeNo(true).setTitle("123").setManager(true).setCarrier(true));
     }
     
     
