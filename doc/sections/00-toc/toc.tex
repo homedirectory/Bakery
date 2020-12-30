@@ -6,13 +6,22 @@ After the registration a User can log in to the system using their username and 
 
 The System consists of multiple entities - key players in the system, which are used.
 
-You can review them by clicking on :
+The System consists of 3 divisions:
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/review1.png}
-% \includegraphics[height=5cm]{review2.png}\\
+- User and Personnel menu
 
-Depending on the role a user has in the system, they can either have the ability to register and edit some entities or not. 
-The key entities are:
+- Logistics
+
+- Production
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/main.png}
+
+
+You can review them by clicking on the corresponding part of the screen.
+
+\section{User and Personnel}
+
+User and Personnel section has multiple roles: 
 
 - Person 
 
@@ -20,15 +29,17 @@ The key entities are:
 
 - Carrier
 
-- Location
+You can review them by clicking:
 
-- Order
+\includegraphics[width=\textwidth]{sections/01-chapter/images/review1.png}
 
-- Product
 
-- Employment
 
-- OrderItem
+\includegraphics[width=\textwidth]{sections/01-chapter/images/personnel.png}
+
+
+
+Depending on the role that a user has in the system, they can either have the ability to register and edit some entities or not. 
 
 \subsection{Person}
 A person represents an entity that is any person (they can be either one of the workers in a bakery or just a person).
@@ -99,6 +110,32 @@ The rest of the fields are optional and the same as described in Person.
 
 Some of the constraints in this part: Manager cannot manage themselves and Manager cannot manage a non-employee.
 
+\subsection{Carrier}
+
+A carrier cannot be added to the table of carriers straightforwardly. It can only be added to the table by clicking the Carrier? checkbox during the registration of a Person:
+
+A Carrier should have its EmployeeNo, Title, and a manager assigned to it. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/carrier1.png}
+
+The required for a Carrier fields are: 
+
+The required fields for a manager are:
+
+- Employee No → the indicator number of the employee, can be generated automatically, if specified in the checkbox to the right.
+
+- Manager → The Manager of a Carrier
+
+In addition, the standard fields are required:
+
+- Initials
+
+- Active? checkbox - which indicates whether the system can further use can interact with the Manager/ The indicator of an active participant in the system. The environment cannot interact with inactive Person.
+
+- Full Name
+
+The rest of the fields are optional and the same as described in Person.
+
 \subsection{Employment}
 
 Employment module represents a concept of employment in the bakery and stores all the important information about this process.
@@ -145,6 +182,18 @@ To save the entered information you need to click on the ‘Save’ button.
 
 To cancel the process and close the form to click on the ‘Cancel' button.
 
+\section{Logistics}
+
+Logistics section has the following roles: 
+
+- Location 
+
+- Order
+
+- OrderItem
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/logistics.png}
+
 \subsection{Location}
 
 The Location Entity represents a location where a bakery has one of its either distributing or production points. 
@@ -189,57 +238,6 @@ The Entity depends on a variety of required information. The mandatory fields ar
 
 The additional optional field is the description.
 
-\subsection{Product}
-
-Product represents a good which is produced and sold by the bakery.
-
-To search for a Product one can select the following search criteria:
-
-- Product, which is the name of the product
-
-- Description of the product
-
-- Price range of the products
-
-\includegraphics[width=\textwidth]{sections/01-chapter/images/product1.png}
-
-As a system user aka Manager, to register a new product you need to press the plus button and add the product using the following fields:
-
-- Name → required, String, name of the product, cannot contain any numbers.
-
-- Description → optional, String
-
-- Price → required, Money
-
-- Recipe → Optional, String
-
-\includegraphics[width=\textwidth]{sections/01-chapter/images/product2.png}
-
-\subsection{Carrier}
-
-A carrier cannot be added to the table of carriers straightforwardly. It can only be added to the table by clicking the Carrier? checkbox during the registration of a Person:
-
-A Carrier should have its EmployeeNo, Title, and a manager assigned to it. 
-
-\includegraphics[width=\textwidth]{sections/01-chapter/images/carrier1.png}
-
-The required for a Carrier fields are: 
-
-The required fields for a manager are:
-
-- Employee No → the indicator number of the employee, can be generated automatically, if specified in the checkbox to the right.
-
-- Manager → The Manager of a Carrier
-
-In addition, the standard fields are required:
-
-- Initials
-
-- Active? checkbox - which indicates whether the system can further use can interact with the Manager/ The indicator of an active participant in the system. The environment cannot interact with inactive Person.
-
-- Full Name
-
-The rest of the fields are optional and the same as described in Person.
 
 \subsection{Order}
 
@@ -247,11 +245,6 @@ The list of Orders is located as the rest of the entities -- in the left panel m
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/order1.png}
 
-The needed Order can be found by two criteria that characterize the Order : 
-
-- orderNo → string that represents the order code number in the format "ORD-OOOOOOO".By default it is automatically generated, but can be set up by User during man
-
-- Carrier → String that represents the initials of a  Carrier
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/order2.png}
 
@@ -259,15 +252,22 @@ The list of available orders in the System will be displayed as following:
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/order3.png}
 
-Order has four coulmns which are the properties:
+Order has four columns which are the properties:
 
-- OrderNo
+- orderNo → string that represents the order code number in the format "ORD-OOOOOOO".By default it is automatically generated, but can be set up by User during man
+
+- Carrier → String that represents the initials of a  Carrier, a person in the carrier position who will be responsible for delivering an order.
 
 - LocationFrom → the location from which the order will be delivered
 
 - LocationTo → the location to which the order will be delivered
 
-- Carrier → a person in the carrier position who will be responsible for delivering an order.
+- delivered - boolean checkbox, which indicated True if ordered is delivered an false otherwise
+
+- orderDate  →  date when the order was made
+
+- deliveryDate  → date when the order was delivered to LocationTo, it will be set automatically to current date when delivered checkbox is clicked
+
 
 During the adding of new Order the list of available Locations to choose from will be proposed. The Carrier can be chosen from the list of available Carriers in the system.
 Important things: The LocationFrom and LocationTo fields cannot be the same.
@@ -316,7 +316,40 @@ Thus the content of an order can be visible by the search in the OrderItem table
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem5.png}
 
-\subsection{System Users field}
+
+\section{Production}
+
+The Production section consist of the only Entity Product.
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/production.png}
+
+\subsection{Product}
+
+Product represents a good which is produced and sold by the bakery.
+
+To search for a Product one can select the following search criteria:
+
+- Product, which is the name of the product
+
+- Description of the product
+
+- Price range of the products
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/product1.png}
+
+As a system user aka Manager, to register a new product you need to press the plus button and add the product using the following fields:
+
+- Name → required, String, name of the product, cannot contain any numbers.
+
+- Description → optional, String
+
+- Price → required, Money
+
+- Recipe → Optional, String
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/product2.png}
+
+\section{System Users field}
 
 The field System Users describes the System in terms of Roles. 
 
@@ -356,5 +389,3 @@ Sofiia Tatosh  →  tatosh@ucu.edu.ua
 Solomiia Shuptar  →  shuptar@ucu.edu.ua
 
 Nazar Todoshchuk  →  todoshchuk@ucu.edu.ua
-
-
