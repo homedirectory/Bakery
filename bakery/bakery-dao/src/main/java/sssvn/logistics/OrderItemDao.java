@@ -1,15 +1,13 @@
 package sssvn.logistics;
 
-import static org.apache.logging.log4j.LogManager.getLogger;
-
-import org.apache.logging.log4j.Logger;
-
 import com.google.inject.Inject;
 
-import ua.com.fielden.platform.entity.fetch.IFetchProvider;
+import sssvn.security.tokens.persistent.OrderItem_CanSave_Token;
 import ua.com.fielden.platform.dao.CommonEntityDao;
-import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.entity.annotation.EntityType;
+import ua.com.fielden.platform.entity.fetch.IFetchProvider;
+import ua.com.fielden.platform.entity.query.IFilter;
+import ua.com.fielden.platform.security.Authorise;
 /**
  * DAO implementation for companion object {@link OrderItemCo}.
  *
@@ -26,8 +24,12 @@ public class OrderItemDao extends CommonEntityDao<OrderItem> implements OrderIte
 
     @Override
     protected IFetchProvider<OrderItem> createFetchProvider() {
-        // TODO: uncomment the following line and specify the properties, which are required for the UI in IOrderItem.FETCH_PROVIDER. Then remove the line after.
          return FETCH_PROVIDER;
-//        throw new UnsupportedOperationException("Please specify the properties, which are required for the UI in IOrderItem.FETCH_PROVIDER");
     }
+    
+    @Override
+    @Authorise(OrderItem_CanSave_Token.class)
+	public OrderItem save(OrderItem entity) {
+		return super.save(entity);
+	}
 }
