@@ -2,12 +2,13 @@ package sssvn.production;
 
 import com.google.inject.Inject;
 
-import sssvn.production.Product;
-import sssvn.production.ProductCo;
-import ua.com.fielden.platform.entity.fetch.IFetchProvider;
+import sssvn.security.tokens.persistent.Product_CanSave_Token;
 import ua.com.fielden.platform.dao.CommonEntityDao;
-import ua.com.fielden.platform.entity.query.IFilter;
+import ua.com.fielden.platform.dao.annotations.SessionRequired;
 import ua.com.fielden.platform.entity.annotation.EntityType;
+import ua.com.fielden.platform.entity.fetch.IFetchProvider;
+import ua.com.fielden.platform.entity.query.IFilter;
+import ua.com.fielden.platform.security.Authorise;
 /**
  * DAO implementation for companion object {@link ProductCo}.
  *
@@ -29,8 +30,13 @@ public class ProductDao extends CommonEntityDao<Product> implements ProductCo {
 
     @Override
     protected IFetchProvider<Product> createFetchProvider() {
-        // TODO: uncomment the following line and specify the properties, which are required for the UI in IProduct.FETCH_PROVIDER. Then remove the line after.
-        // return FETCH_PROVIDER;
         return FETCH_PROVIDER;
     }
+    
+    @Override
+    @SessionRequired
+    @Authorise(Product_CanSave_Token.class)
+	public Product save(Product entity) {
+		return super.save(entity);
+	}
 }
