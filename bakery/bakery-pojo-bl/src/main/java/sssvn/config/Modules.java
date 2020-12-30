@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import sssvn.security.tokens.LogisticsModuleToken;
 import sssvn.security.tokens.OtherModuleToken;
+import sssvn.security.tokens.ProductionModuleToken;
 import sssvn.security.tokens.UsersAndPersonnelModuleToken;
 import ua.com.fielden.platform.security.ISecurityToken;
 import ua.com.fielden.platform.utils.StreamUtils;
@@ -28,6 +29,10 @@ public enum Modules {
             "mainMenu:store", "#1976d2", "#004ba0",
             LogisticsModuleToken.class,
             "sssvn.logistics"),
+    PRODUCTION("Production", "A module to manage company's production.",
+            "mainMenu:production", "#ff9800", "#c66900",
+            ProductionModuleToken.class,
+            "sssvn.production"),
     OTHER("Other", "Entities that have not been or cannot be classified as belonging to one specific module.",
             "", "", "",
            OtherModuleToken.class,
