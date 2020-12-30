@@ -6,13 +6,22 @@ After the registration a User can log in to the system using their username and 
 
 The System consists of multiple entities - key players in the system, which are used.
 
-You can review them by clicking on :
+The System consists of 3 divisions:
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/review1.png}
-% \includegraphics[height=5cm]{review2.png}\\
+- User and Personnel menu
 
-Depending on the role a user has in the system, they can either have the ability to register and edit some entities or not. 
-The key entities are:
+- Logistics
+
+- Production
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/main.png}
+
+
+You can review them by clicking on the corresponding part of the screen.
+
+\section{User and Personnel}
+
+User and Personnel section has multiple roles: 
 
 - Person 
 
@@ -20,15 +29,17 @@ The key entities are:
 
 - Carrier
 
-- Location
+You can review them by clicking:
 
-- Order
+\includegraphics[width=\textwidth]{sections/01-chapter/images/review1.png}
 
-- Product
 
-- Employment
 
-- OrderItem
+\includegraphics[width=\textwidth]{sections/01-chapter/images/personnel.png}
+
+
+
+Depending on the role that a user has in the system, they can either have the ability to register and edit some entities or not. 
 
 \subsection{Person}
 A person represents an entity that is any person (they can be either one of the workers in a bakery or just a person).
@@ -99,6 +110,32 @@ The rest of the fields are optional and the same as described in Person.
 
 Some of the constraints in this part: Manager cannot manage themselves and Manager cannot manage a non-employee.
 
+\subsection{Carrier}
+
+A carrier cannot be added to the table of carriers straightforwardly. It can only be added to the table by clicking the Carrier? checkbox during the registration of a Person:
+
+A Carrier should have its EmployeeNo, Title, and a manager assigned to it. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/carrier1.png}
+
+The required for a Carrier fields are: 
+
+The required fields for a manager are:
+
+- Employee No → the indicator number of the employee, can be generated automatically, if specified in the checkbox to the right.
+
+- Manager → The Manager of a Carrier
+
+In addition, the standard fields are required:
+
+- Initials
+
+- Active? checkbox - which indicates whether the system can further use can interact with the Manager/ The indicator of an active participant in the system. The environment cannot interact with inactive Person.
+
+- Full Name
+
+The rest of the fields are optional and the same as described in Person.
+
 \subsection{Employment}
 
 Employment module represents a concept of employment in the bakery and stores all the important information about this process.
@@ -145,6 +182,18 @@ To save the entered information you need to click on the ‘Save’ button.
 
 To cancel the process and close the form to click on the ‘Cancel' button.
 
+\section{Logistics}
+
+Logistics section has the following roles: 
+
+- Location 
+
+- Order
+
+- OrderItem
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/logistics.png}
+
 \subsection{Location}
 
 The Location Entity represents a location where a bakery has one of its either distributing or production points. 
@@ -189,6 +238,91 @@ The Entity depends on a variety of required information. The mandatory fields ar
 
 The additional optional field is the description.
 
+
+\subsection{Order}
+
+The list of Orders is located as the rest of the entities -- in the left panel menu. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order1.png}
+
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order2.png}
+
+The list of available orders in the System will be displayed as following:
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order3.png}
+
+Order has four columns which are the properties:
+
+- orderNo → string that represents the order code number in the format "ORD-OOOOOOO".By default it is automatically generated, but can be set up by User during man
+
+- Carrier → String that represents the initials of a  Carrier, a person in the carrier position who will be responsible for delivering an order.
+
+- LocationFrom → the location from which the order will be delivered
+
+- LocationTo → the location to which the order will be delivered
+
+- delivered - boolean checkbox, which indicated True if ordered is delivered an false otherwise
+
+- orderDate  →  date when the order was made
+
+- deliveryDate  → date when the order was delivered to LocationTo, it will be set automatically to current date when delivered checkbox is clicked
+
+
+During the adding of new Order the list of available Locations to choose from will be proposed. The Carrier can be chosen from the list of available Carriers in the system.
+Important things: The LocationFrom and LocationTo fields cannot be the same.
+
+Some of the restrictions which are important with the Order:
+No more than 10 products can be added to an order.
+No less than 3 products must be added to create an order.
+The user is not able to add the same product, if it is already added.
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/order4.png}
+
+\subsection{OrderItem}
+
+After adding the Order to the database, You can edit the content of Order using the OrderItem Entity. The OrderItem entity describes the relationship between an Order and the Products in that Entity. 
+
+In order to add a new OrderItem entity one should choose an Order which it wants to edit using order number, and choose the Product that belongs to the chosen Order from the list of available products and the quantity of the Product. 
+
+So, OrderItem has the following fields/properties:
+
+
+- Order →  required fields which represents the order to which content will be added to.
+
+- Product →  required field which represents the products which will be added to this order.
+
+- Quantity →  required, integer which represents the quantity of product ordered.
+
+
+For example, if a User has created an Order with the following parameters:
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem1.png}
+
+Then they can add the content of that Order using OrderItem Entity. Let the Order under id ORD-000001 from Kozelnytska, 2a to Zelena, 145 contain the Products : Startak cake 12  pieces and Lemon pie 45 pieces. 
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem2.png}
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem3.png}
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem4.png}
+
+The Warning under the Product informs about a minimum preferable product amount in a single order that is equal 2. 
+
+Some of the restrictions which are important with the Order:
+No more than 10 products can be added to an order. The least amount of types of products in an order is set to 3. The user is not able to add the same product, if it is already added.
+
+Thus the content of an order can be visible by the search in the OrderItem table using the search criteria → orderNo.
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/orderitem5.png}
+
+
+\section{Production}
+
+The Production section consist of the only Entity Product.
+
+\includegraphics[width=\textwidth]{sections/01-chapter/images/production.png}
+
 \subsection{Product}
 
 Product represents a good which is produced and sold by the bakery.
@@ -215,62 +349,43 @@ As a system user aka Manager, to register a new product you need to press the pl
 
 \includegraphics[width=\textwidth]{sections/01-chapter/images/product2.png}
 
-\subsection{Carrier}
+\section{System Users field}
 
-A carrier cannot be added to the table of carriers straightforwardly. It can only be added to the table by clicking the Carrier? checkbox during the registration of a Person:
+The field System Users describes the System in terms of Roles. 
 
-A Carrier should have its EmployeeNo, Title, and a manager assigned to it. 
+\includegraphics[width=\textwidth]{sections/01-chapter/images/system1.png}
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/carrier1.png}
+The Entity Users displays all the relevant information about the users present in the system.
 
-The required for a Carrier fields are: 
+\includegraphics[width=\textwidth]{sections/01-chapter/images/system2.png}
 
-The required fields for a manager are:
+There are multiple roles a User can have in a System. The roles can be created manually. The roles can have different access to data as well as to what one can do within a System.
 
-- Employee No → the indicator number of the employee, can be generated automatically, if specified in the checkbox to the right.
+\includegraphics[width=\textwidth]{sections/01-chapter/images/system3.png}
 
-- Manager → The Manager of a Carrier
+The creation of a new role requires the filling of the information about Role Title as well as description. In order for a system to be able to interact with the set Role the Active option should be turned on.
 
-In addition, the standard fields are required:
 
-- Initials
+\includegraphics[width=\textwidth]{sections/01-chapter/images/system4.png}
 
-- Active? checkbox - which indicates whether the system can further use can interact with the Manager/ The indicator of an active participant in the system. The environment cannot interact with inactive Person.
+By default we created the ADMIN role. 
+The Security Matrix item describes what each role can have access to. 
 
-- Full Name
+The tokens do not enable the action by themself. A User has a particular role then it is authorized to make some actions. For example, a user with ADMIN role is authorized to add, edit and delete all the information related to User Entity as well as Person Entity.  
 
-The rest of the fields are optional and the same as described in Person.
+\includegraphics[width=\textwidth]{sections/01-chapter/images/system5.png}
 
-\subsection{Order}
+During the assignment of the authorization zones You should be aware that the zones are nested and the outermost will be the one a user will have access to. 
 
-The list of Orders is located as the rest of the entities -- in the left panel menu. 
+\section{Contact information}
+In case of further questions, You can post questions as the separate issue o GitHub: https://github.com/vlad-bilyk/Bakery or write them directly to one of the team members. 
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/order1.png}
+Vlad Bilyk  →  bilyk@ucu.edu.ua
 
-The needed Order can be found by two criteria that characterize the Order : 
+Sofiya Garkot  →  garkot@ucu.edu.ua
 
-- orderNo → string that represents the order code number in the format "ORD-OOOOOOO".By default it is automatically generated, but can be set up by User during man
+Sofiia Tatosh  →  tatosh@ucu.edu.ua
 
-- Carrier → String that represents the initials of a  Carrier
+Solomiia Shuptar  →  shuptar@ucu.edu.ua
 
-\includegraphics[width=\textwidth]{sections/01-chapter/images/order2.png}
-
-The list of available orders in the System will be displayed as following:
-
-\includegraphics[width=\textwidth]{sections/01-chapter/images/order3.png}
-
-Order has four coulmns which are the properties:
-
-- OrderNo
-
-- LocationFrom → the location from which the order will be delivered
-
-- LocationTo → the location to which the order will be delivered
-
-- Carrier → a person in the carrier position who will be responsible for delivering an order.
-
-During the adding of new Order the list of available Locations to choose from will be proposed. The Carrier can be chosen from the list of available Carriers in the system.
-Important things: The LocationFrom and LocationTo fields cannot be the same.
-
-\includegraphics[width=\textwidth]{sections/01-chapter/images/order4.png}
-
+Nazar Todoshchuk  →  todoshchuk@ucu.edu.ua
