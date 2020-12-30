@@ -1,5 +1,8 @@
 package sssvn.logistics;
 
+import java.util.Date;
+
+import sssvn.logistics.definers.OrderDeliveredDefiner;
 import sssvn.logistics.validators.DifferentLocationsValidator;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
@@ -18,8 +21,11 @@ import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Readonly;
 import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
+import ua.com.fielden.platform.entity.validation.annotation.GeProperty;
+import ua.com.fielden.platform.entity.validation.annotation.LeProperty;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -68,6 +74,25 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Required
     private Carrier carrier;
     
+    @IsProperty
+	@MapTo
+	@Dependent("deliveryDate")
+	@Title(value = "Order Date", desc = "Date when this order was placed.")
+    @Required
+	private Date orderDate;
+
+	@IsProperty
+	@MapTo
+	@Dependent("orderDate")
+	@Title(value = "Delivery Date", desc = "Date when this order was delivered.")
+	private Date deliveryDate;
+
+    @IsProperty
+	@MapTo
+	@Title(value = "Delivered?", desc = "Indicates whether this order has been delivered")
+    @AfterChange(OrderDeliveredDefiner.class)
+	private boolean delivered;
+    
     @Override
     @Observable
     protected Order setActive(boolean active) {
@@ -108,8 +133,6 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
         return locationTo;
     }
 
-    
-
     @Observable
     public Order setOrderNo(final String orderNo) {
         this.orderNo = orderNo;
@@ -120,6 +143,37 @@ public class Order extends ActivatableAbstractEntity<DynamicEntityKey> {
         return orderNo;
     }
 
+    @Observable
+	@LeProperty("deliveryDate")
+	public Order setOrderDate(final Date orderDate) {
+		this.orderDate = orderDate;
+		return this;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	@Observable
+	@GeProperty("orderDate")
+	public Order setDeliveryDate(final Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+		return this;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	
+	@Observable
+	public Order setDelivered(final boolean delivered) {
+		this.delivered = delivered;
+		return this;
+	}
+
+	public boolean getDelivered() {
+		return delivered;
+	}
     
 
 }

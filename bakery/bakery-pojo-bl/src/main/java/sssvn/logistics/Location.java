@@ -55,16 +55,12 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value = "Country", desc = "Country where the bakery point is located.")
-//    @BeforeChange(@Handler(LocationCountryValidator.class))
     private String country;
     
     @IsProperty
     @MapTo
     @Required
     @Title(value = "City", desc = "City where a bakery is located.")
-    // @CompositeKeyMember(1)  // property will be the key of that entity
-    // TODO: Implement Validators!
-//    @BeforeChange(@Handler(LocationCityValidator.class))
     private String city;
 
     @IsProperty
@@ -72,7 +68,6 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Required
     @Unique
     @Title(value = "Address", desc = "Location's address")
-//  @BeforeChange(@Handler(LocationAddressValidator.class))
     @CompositeKeyMember(1)
     private String address;
 
@@ -81,7 +76,6 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Unique
     @Required
     @Title(value="phone", desc = "Phone number of the location.")
-    // @AfterChange(PositionRequirednsessForEmployeeDefiner.class)
     @BeforeChange(@Handler(LocationPhoneValidator.class))
     private String phone;
     
@@ -90,7 +84,6 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value="Working hours", desc = "Working hours of the location.")
-//  @BeforeChange(@Handler(LocationWorkingHoursValidator.class))
     private String workingHours;
     
     
@@ -98,13 +91,11 @@ public class Location extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value="Employees amount", desc = "Number of employees at the location.")
-//  @BeforeChange(@Handler(LocationEmployeeAmountValidator.class))
     private Long employeesAmount;
     
     @Override
     @Observable
     public Location setActive(boolean active) {
-        
         super.setActive(active);
         return this;
     }

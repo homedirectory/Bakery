@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -158,8 +159,8 @@ public class OrderTest extends AbstractDaoTestCase {
 
         final Optional<Carrier> carrier = co$(Carrier.class).findByKeyAndFetchOptional(CarrierCo.FETCH_PROVIDER.fetchModel(), p);
 
-        Order order1 = save(new_(Order.class).setOrderNo("123").setLocationFrom(locationFrom).setLocationTo(locationTo).setCarrier(carrier.get().setActive(true)));
-        Order order2 = save(new_(Order.class).setOrderNo("124").setLocationFrom(locationFrom1).setLocationTo(locationTo1).setCarrier(carrier.get().setActive(true)));
+        Order order1 = save(new_(Order.class).setOrderNo("123").setLocationFrom(locationFrom).setLocationTo(locationTo).setCarrier(carrier.get().setActive(true)).setOrderDate(new Date()));
+        Order order2 = save(new_(Order.class).setOrderNo("124").setLocationFrom(locationFrom1).setLocationTo(locationTo1).setCarrier(carrier.get().setActive(true)).setOrderDate(new Date()));
         
         Product product1 = save(new_(Product.class).setName("Croissant").setPrice(Money.of("22.00")).setRecipe("Flour, sugar").setActive(true));
         Product product2 = save(new_(Product.class).setName("Cake").setPrice(Money.of("27.00")).setRecipe("Flour, sugar, eggs").setActive(true));
