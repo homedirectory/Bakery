@@ -53,13 +53,11 @@ public class CarrierWebUiConfig {
     private EntityCentre<Carrier> createCentre(final Injector injector, final IWebUiBuilder builder) {
         final String layout = LayoutComposer.mkGridForCentre(1, 2);
 
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Carrier.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Carrier.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
         final EntityCentreConfig<Carrier> ecc = EntityCentreBuilder.centreFor(Carrier.class)
                 .runAutomatically()
-                .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("this").asMulti().autocompleter(Carrier.class).also()

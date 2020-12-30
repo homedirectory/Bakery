@@ -54,13 +54,11 @@ public class ManagerWebUiConfig {
     private EntityCentre<Manager> createCentre(final Injector injector, final IWebUiBuilder builder) {
         final String layout = LayoutComposer.mkGridForCentre(1, 2);
 
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Manager.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Manager.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
         final EntityCentreConfig<Manager> ecc = EntityCentreBuilder.centreFor(Manager.class)
                 .runAutomatically()
-                .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit("this").asMulti().autocompleter(Manager.class).also()

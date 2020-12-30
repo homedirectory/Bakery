@@ -64,13 +64,11 @@ public class PersonWebUiConfig {
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Person.class);
         final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Person.class);
         builder.registerOpenMasterAction(Person.class, standardEditAction);
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Person.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Person.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
         final EntityCentreConfig<Person> ecc = EntityCentreBuilder.centreFor(Person.class)
                 .addTopAction(standardNewAction).also()
-                .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 // row 1

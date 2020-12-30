@@ -57,7 +57,6 @@ public class ProductWebUiConfig {
 
 
             final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Product.class);
-            final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Product.class);
             final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Product.class);
             final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Product.class);
             final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
@@ -67,7 +66,6 @@ public class ProductWebUiConfig {
                     //.runAutomatically()
                     .addFrontAction(standardNewAction)
                     .addTopAction(standardNewAction).also()
-                    .addTopAction(standardDeleteAction).also()
                     .addTopAction(standardSortAction).also()
                     .addTopAction(standardExportAction)
                     .addCrit("this").asMulti().autocompleter(Product.class).also()
