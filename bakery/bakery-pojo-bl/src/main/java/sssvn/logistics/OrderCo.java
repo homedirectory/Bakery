@@ -1,4 +1,4 @@
-package sssvn.order;
+package sssvn.logistics;
 
 import ua.com.fielden.platform.entity.fetch.IFetchProvider;
 import ua.com.fielden.platform.utils.EntityUtils;

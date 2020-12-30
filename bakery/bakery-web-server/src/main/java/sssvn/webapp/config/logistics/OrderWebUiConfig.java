@@ -1,4 +1,4 @@
-package sssvn.webapp.config.order;
+package sssvn.webapp.config.logistics;
 
 import static java.lang.String.format;
 import static sssvn.common.LayoutComposer.CELL_LAYOUT;
@@ -14,9 +14,9 @@ import com.google.inject.Injector;
 
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
-import sssvn.location.Location;
-import sssvn.main.menu.order.MiOrder;
-import sssvn.order.Order;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.main.menu.logistics.MiOrder;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;

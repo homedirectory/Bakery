@@ -1,7 +1,8 @@
-package sssvn.order;
+package sssvn.logistics;
 
 import com.google.inject.Inject;
 
+import sssvn.security.tokens.persistent.Order_CanSave_Token;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.dao.annotations.SessionRequired;
 import ua.com.fielden.platform.entity.annotation.EntityType;
@@ -10,10 +11,11 @@ import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.error.Result;
 import ua.com.fielden.platform.keygen.IKeyNumber;
 import ua.com.fielden.platform.keygen.KeyNumber;
+import ua.com.fielden.platform.security.Authorise;
 import ua.com.fielden.platform.utils.EntityUtils;
 
 /**
- * DAO implementation for companion object {@link IOrder}.
+ * DAO implementation for companion object {@link OrderCo}.
  *
  * @author Developers
  *
@@ -37,6 +39,7 @@ public class OrderDao extends CommonEntityDao<Order> implements OrderCo {
 
     @Override
     @SessionRequired
+    @Authorise(Order_CanSave_Token.class)
     public Order save(final Order order) {
         order.isValid().ifFailure(Result::throwRuntime);
         boolean orderIsPersisted = order.isPersisted();

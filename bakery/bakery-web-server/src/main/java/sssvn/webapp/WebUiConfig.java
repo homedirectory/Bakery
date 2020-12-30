@@ -4,19 +4,19 @@ import static ua.com.fielden.platform.reflection.TitlesDescsGetter.getEntityTitl
 
 import org.apache.commons.lang3.StringUtils;
 
-import sssvn.location.Location;
-import sssvn.order.Order;
-import sssvn.order.OrderItem;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
 import sssvn.product.Product;
 import sssvn.config.Modules;
-import sssvn.config.location.LocationWebUiConfig;
 import sssvn.config.personnel.PersonWebUiConfig;
-import sssvn.webapp.config.order.OrderItemWebUiConfig;
-import sssvn.webapp.config.order.OrderWebUiConfig;
+import sssvn.webapp.config.logistics.LocationWebUiConfig;
+import sssvn.webapp.config.logistics.OrderItemWebUiConfig;
+import sssvn.webapp.config.logistics.OrderWebUiConfig;
 import sssvn.webapp.config.personnel.CarrierWebUiConfig;
 import sssvn.webapp.config.personnel.EmploymentWebUiConfig;
 import sssvn.webapp.config.personnel.ManagerWebUiConfig;
@@ -117,11 +117,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .bgColor(Modules.USERS_AND_PERSONNEL.bgColour)
             .captionBgColor(Modules.USERS_AND_PERSONNEL.captionBgColour)
             .menu()
-                .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
-                .addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()                
                 .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
-                .addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
-                .addMenuItem(mkMenuItemTitle(OrderItem.class)).description(mkMenuItemDesc(OrderItem.class)).centre(orderItemWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Carrier.class)).description(mkMenuItemDesc(Carrier.class)).centre(carrierWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Employment.class)).description(mkMenuItemDesc(Employment.class)).centre(employmentWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Product.class)).description(mkMenuItemDesc(Product.class)).centre(productWebUiConfig.centre).done()
@@ -131,7 +128,18 @@ public class WebUiConfig extends AbstractWebUiConfig {
                     .addMenuItem("Security Matrix").description("Security Matrix is used to manage application authorisations for User Roles.").master(securityConfig.master).done()
                 .done()
             .done().done()
-        .setLayoutFor(Device.DESKTOP, null, "[[[]]]")
+        .addModule(Modules.LOGISTICS.title)
+        .description(Modules.LOGISTICS.desc)
+        .icon(Modules.LOGISTICS.icon)
+        .detailIcon(Modules.LOGISTICS.icon)
+        .bgColor(Modules.LOGISTICS.bgColour)
+        .captionBgColor(Modules.LOGISTICS.captionBgColour)
+        .menu()
+        	.addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
+        	.addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
+        	.addMenuItem(mkMenuItemTitle(OrderItem.class)).description(mkMenuItemDesc(OrderItem.class)).centre(orderItemWebUiConfig.centre).done()
+        .done().done()
+        .setLayoutFor(Device.DESKTOP, null, "[ [ [], [] ] ]")
         .setLayoutFor(Device.TABLET, null, "[[[]]]")
         .setLayoutFor(Device.MOBILE, null, "[[[]]]")
         .minCellWidth(100).minCellHeight(148).done();

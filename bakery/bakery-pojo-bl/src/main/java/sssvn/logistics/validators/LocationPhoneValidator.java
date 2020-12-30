@@ -1,4 +1,4 @@
-package sssvn.location.validators;
+package sssvn.logistics.validators;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;

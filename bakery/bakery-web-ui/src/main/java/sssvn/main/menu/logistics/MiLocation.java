@@ -1,6 +1,6 @@
-package sssvn.main.menu.location;
+package sssvn.main.menu.logistics;
 
-import sssvn.location.Location;
+import sssvn.logistics.Location;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 import ua.com.fielden.platform.ui.menu.MiWithConfigurationSupport;
 
