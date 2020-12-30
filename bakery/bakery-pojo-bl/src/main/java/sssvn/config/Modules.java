@@ -25,7 +25,7 @@ public enum Modules {
             "sssvn.personnel",
             "ua.com.fielden.platform.security.user"),
     LOGISTICS("Logistics", "A module to manage company logistics.",
-            "mainMenu:help", "#ffff72", "#c8b900",
+            "mainMenu:store", "#1976d2", "#004ba0",
             LogisticsModuleToken.class,
             "sssvn.logistics"),
     OTHER("Other", "Entities that have not been or cannot be classified as belonging to one specific module.",
