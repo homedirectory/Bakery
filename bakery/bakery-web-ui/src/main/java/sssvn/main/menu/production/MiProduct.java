@@ -1,8 +1,8 @@
-package sssvn.main.menu.product;
+package sssvn.main.menu.production;
 
+import sssvn.production.Product;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 import ua.com.fielden.platform.ui.menu.MiWithConfigurationSupport;
-import sssvn.product.Product;
 /**
  * Main menu item representing an entity centre for {@link Product}.
  *

@@ -4,7 +4,7 @@ import java.lang.annotation.Target;
 
 import sssvn.logistics.Order;
 import sssvn.logistics.validators.ProductAmountForOrderValidator;
-import sssvn.product.Product;
+import sssvn.production.Product;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;

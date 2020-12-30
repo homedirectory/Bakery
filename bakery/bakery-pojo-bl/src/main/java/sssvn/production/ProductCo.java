@@ -1,4 +1,4 @@
-package sssvn.product;
+package sssvn.production;
 
 import ua.com.fielden.platform.entity.fetch.IFetchProvider;
 import ua.com.fielden.platform.utils.EntityUtils;

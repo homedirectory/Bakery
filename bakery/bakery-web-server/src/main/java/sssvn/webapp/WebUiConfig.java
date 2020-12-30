@@ -11,7 +11,7 @@ import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
-import sssvn.product.Product;
+import sssvn.production.Product;
 import sssvn.config.Modules;
 import sssvn.config.personnel.PersonWebUiConfig;
 import sssvn.webapp.config.logistics.LocationWebUiConfig;
@@ -20,7 +20,7 @@ import sssvn.webapp.config.logistics.OrderWebUiConfig;
 import sssvn.webapp.config.personnel.CarrierWebUiConfig;
 import sssvn.webapp.config.personnel.EmploymentWebUiConfig;
 import sssvn.webapp.config.personnel.ManagerWebUiConfig;
-import sssvn.webapp.config.product.ProductWebUiConfig;
+import sssvn.webapp.config.production.ProductWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
@@ -91,13 +91,17 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final CarrierWebUiConfig carrierWebUiConfig = CarrierWebUiConfig.register(injector(), builder);
         final ManagerWebUiConfig managerWebUiConfig = ManagerWebUiConfig.register(injector(), builder);
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
-        final LocationWebUiConfig locationWebUiConfig = LocationWebUiConfig.register(injector(), builder);
-        final ProductWebUiConfig productWebUiConfig = ProductWebUiConfig.register(injector(), builder);
-        final OrderWebUiConfig orderWebUiConfig = OrderWebUiConfig.register(injector(), builder);
-        final OrderItemWebUiConfig orderItemWebUiConfig = OrderItemWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final SecurityMatrixWebUiConfig securityConfig = SecurityMatrixWebUiConfig.register(injector(), configApp());
+        
+        // Logistics Module
+        final LocationWebUiConfig locationWebUiConfig = LocationWebUiConfig.register(injector(), builder);
+        final OrderWebUiConfig orderWebUiConfig = OrderWebUiConfig.register(injector(), builder);
+        final OrderItemWebUiConfig orderItemWebUiConfig = OrderItemWebUiConfig.register(injector(), builder);
+        
+        // Production Module
+        final ProductWebUiConfig productWebUiConfig = ProductWebUiConfig.register(injector(), builder);
 
         // Add user-rated masters and centres to the configuration 
         configApp()
@@ -121,7 +125,6 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .addMenuItem(mkMenuItemTitle(Manager.class)).description(mkMenuItemDesc(Manager.class)).centre(managerWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Carrier.class)).description(mkMenuItemDesc(Carrier.class)).centre(carrierWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Employment.class)).description(mkMenuItemDesc(Employment.class)).centre(employmentWebUiConfig.centre).done()
-                .addMenuItem(mkMenuItemTitle(Product.class)).description(mkMenuItemDesc(Product.class)).centre(productWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, athorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
@@ -129,17 +132,26 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .done()
             .done().done()
         .addModule(Modules.LOGISTICS.title)
-        .description(Modules.LOGISTICS.desc)
-        .icon(Modules.LOGISTICS.icon)
-        .detailIcon(Modules.LOGISTICS.icon)
-        .bgColor(Modules.LOGISTICS.bgColour)
-        .captionBgColor(Modules.LOGISTICS.captionBgColour)
-        .menu()
-        	.addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
-        	.addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
-        	.addMenuItem(mkMenuItemTitle(OrderItem.class)).description(mkMenuItemDesc(OrderItem.class)).centre(orderItemWebUiConfig.centre).done()
-        .done().done()
-        .setLayoutFor(Device.DESKTOP, null, "[ [ [], [] ] ]")
+	        .description(Modules.LOGISTICS.desc)
+	        .icon(Modules.LOGISTICS.icon)
+	        .detailIcon(Modules.LOGISTICS.icon)
+	        .bgColor(Modules.LOGISTICS.bgColour)
+	        .captionBgColor(Modules.LOGISTICS.captionBgColour)
+	        .menu()
+	        	.addMenuItem(mkMenuItemTitle(Location.class)).description(mkMenuItemDesc(Location.class)).centre(locationWebUiConfig.centre).done()
+	        	.addMenuItem(mkMenuItemTitle(Order.class)).description(mkMenuItemDesc(Order.class)).centre(orderWebUiConfig.centre).done()
+	        	.addMenuItem(mkMenuItemTitle(OrderItem.class)).description(mkMenuItemDesc(OrderItem.class)).centre(orderItemWebUiConfig.centre).done()
+	        .done().done()
+        .addModule(Modules.PRODUCTION.title)
+	        .description(Modules.PRODUCTION.desc)
+	        .icon(Modules.PRODUCTION.icon)
+	        .detailIcon(Modules.PRODUCTION.icon)
+	        .bgColor(Modules.PRODUCTION.bgColour)
+	        .captionBgColor(Modules.PRODUCTION.captionBgColour)
+	        .menu()
+	        	.addMenuItem(mkMenuItemTitle(Product.class)).description(mkMenuItemDesc(Product.class)).centre(productWebUiConfig.centre).done()
+	        .done().done()
+        .setLayoutFor(Device.DESKTOP, null, "[ [ [], [], [] ] ]")
         .setLayoutFor(Device.TABLET, null, "[[[]]]")
         .setLayoutFor(Device.MOBILE, null, "[[[]]]")
         .minCellWidth(100).minCellHeight(148).done();
