@@ -1,9 +1,9 @@
-package sssvn.order;
+package sssvn.logistics;
 
 import java.lang.annotation.Target;
 
-import sssvn.order.Order;
-import sssvn.order.validators.ProductAmountForOrderValidator;
+import sssvn.logistics.Order;
+import sssvn.logistics.validators.ProductAmountForOrderValidator;
 import sssvn.product.Product;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;

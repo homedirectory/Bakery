@@ -9,13 +9,13 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import sssvn.location.Location;
-import sssvn.order.Order;
-import sssvn.order.OrderCo;
-import sssvn.order.OrderItem;
-import sssvn.order.OrderItemCo;
-import sssvn.order.validators.DifferentLocationsValidator;
-import sssvn.order.validators.ProductAmountForOrderValidator;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderCo;
+import sssvn.logistics.OrderItem;
+import sssvn.logistics.OrderItemCo;
+import sssvn.logistics.validators.DifferentLocationsValidator;
+import sssvn.logistics.validators.ProductAmountForOrderValidator;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Person;

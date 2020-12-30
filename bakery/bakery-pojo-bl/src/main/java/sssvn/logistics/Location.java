@@ -1,9 +1,9 @@
-package sssvn.location;
+package sssvn.logistics;
 
 import java.util.ArrayList;
 
-import sssvn.location.LocationCo;
-import sssvn.location.validators.LocationPhoneValidator;
+import sssvn.logistics.LocationCo;
+import sssvn.logistics.validators.LocationPhoneValidator;
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
 import sssvn.personnel.definers.PositionRequirednsessForEmployeeDefiner;

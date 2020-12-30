@@ -1,4 +1,4 @@
-package sssvn.webapp.config.order;
+package sssvn.webapp.config.logistics;
 
 import static java.lang.String.format;
 import static sssvn.common.LayoutComposer.CELL_LAYOUT;
@@ -10,13 +10,14 @@ import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import sssvn.order.Order;
-import sssvn.order.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.product.Product;
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
-import sssvn.location.Location;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderItem;
+import sssvn.main.menu.logistics.MiOrderItem;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
@@ -26,7 +27,6 @@ import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-import sssvn.main.menu.order.MiOrderItem;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;

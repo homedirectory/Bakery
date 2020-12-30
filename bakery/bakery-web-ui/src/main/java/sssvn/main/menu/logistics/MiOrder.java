@@ -1,8 +1,8 @@
-package sssvn.main.menu.order;
+package sssvn.main.menu.logistics;
 
+import sssvn.logistics.Order;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 import ua.com.fielden.platform.ui.menu.MiWithConfigurationSupport;
-import sssvn.order.Order;
 /**
  * Main menu item representing an entity centre for {@link Order}.
  *

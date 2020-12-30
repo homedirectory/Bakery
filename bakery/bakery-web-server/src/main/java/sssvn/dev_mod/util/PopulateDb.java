@@ -14,9 +14,9 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 import org.apache.logging.log4j.Logger;
 
 import sssvn.config.ApplicationDomain;
-import sssvn.location.Location;
-import sssvn.order.Order;
-import sssvn.order.OrderItem;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.CarrierCo;
 import sssvn.personnel.Person;

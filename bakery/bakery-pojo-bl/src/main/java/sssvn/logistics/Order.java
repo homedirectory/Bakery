@@ -1,7 +1,6 @@
-package sssvn.order;
+package sssvn.logistics;
 
-import sssvn.location.Location;
-import sssvn.order.validators.DifferentLocationsValidator;
+import sssvn.logistics.validators.DifferentLocationsValidator;
 import sssvn.personnel.Carrier;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;

@@ -10,13 +10,13 @@ import sssvn.personnel.Person;
 import ua.com.fielden.platform.basic.config.IApplicationDomainProvider;
 import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
-import sssvn.location.Location;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderItem;
 import sssvn.personnel.Manager;
 import sssvn.product.Product;
-import sssvn.order.Order;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
-import sssvn.order.OrderItem;
 
 /**
  * A class to register domain entities.

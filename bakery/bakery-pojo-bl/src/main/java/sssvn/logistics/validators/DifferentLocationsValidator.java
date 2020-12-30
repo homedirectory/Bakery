@@ -1,10 +1,10 @@
-package sssvn.order.validators;
+package sssvn.logistics.validators;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
-import sssvn.location.Location;
-import sssvn.order.Order;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
 import ua.com.fielden.platform.entity.meta.MetaProperty;
 import ua.com.fielden.platform.entity.meta.impl.AbstractBeforeChangeEventHandler;
 import ua.com.fielden.platform.error.Result;

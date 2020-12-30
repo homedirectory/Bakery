@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import sssvn.location.Location;
-import sssvn.location.LocationCo;
-import sssvn.location.validators.LocationPhoneValidator;
+import sssvn.logistics.Location;
+import sssvn.logistics.LocationCo;
+import sssvn.logistics.validators.LocationPhoneValidator;
 import sssvn.personnel.Person;
 import sssvn.test_config.AbstractDaoTestCase;
 import sssvn.test_config.UniversalConstantsForTesting;

@@ -1,4 +1,4 @@
-package sssvn.location;
+package sssvn.logistics;
 
 import static java.lang.String.format;
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.fetch;

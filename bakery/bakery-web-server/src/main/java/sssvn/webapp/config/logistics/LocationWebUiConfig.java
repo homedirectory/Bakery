@@ -1,4 +1,4 @@
-package sssvn.config.location;
+package sssvn.webapp.config.logistics;
 
 
 import static sssvn.common.LayoutComposer.*;
@@ -16,10 +16,9 @@ import com.google.inject.Injector;
 
 import sssvn.common.LayoutComposer;
 import sssvn.common.StandardActions;
-import sssvn.config.location.LocationWebUiConfig;
-import sssvn.location.Location;
-import sssvn.main.menu.location.MiLocation;
-import sssvn.location.Location;
+import sssvn.logistics.Location;
+import sssvn.main.menu.logistics.MiLocation;
+import sssvn.webapp.config.logistics.LocationWebUiConfig;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;

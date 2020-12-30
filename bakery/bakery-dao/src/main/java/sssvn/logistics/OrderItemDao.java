@@ -1,4 +1,4 @@
-package sssvn.order;
+package sssvn.logistics;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
 
@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.inject.Inject;
 
-import sssvn.location.LocationDao;
 import ua.com.fielden.platform.entity.fetch.IFetchProvider;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.entity.query.IFilter;

@@ -1,4 +1,4 @@
-package sssvn.order;
+package sssvn.logistics;
 
 import com.google.inject.Inject;
 

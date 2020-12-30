@@ -4,19 +4,19 @@ import static ua.com.fielden.platform.reflection.TitlesDescsGetter.getEntityTitl
 
 import org.apache.commons.lang3.StringUtils;
 
-import sssvn.location.Location;
-import sssvn.order.Order;
-import sssvn.order.OrderItem;
+import sssvn.logistics.Location;
+import sssvn.logistics.Order;
+import sssvn.logistics.OrderItem;
 import sssvn.personnel.Carrier;
 import sssvn.personnel.Employment;
 import sssvn.personnel.Manager;
 import sssvn.personnel.Person;
 import sssvn.product.Product;
 import sssvn.config.Modules;
-import sssvn.config.location.LocationWebUiConfig;
 import sssvn.config.personnel.PersonWebUiConfig;
-import sssvn.webapp.config.order.OrderItemWebUiConfig;
-import sssvn.webapp.config.order.OrderWebUiConfig;
+import sssvn.webapp.config.logistics.LocationWebUiConfig;
+import sssvn.webapp.config.logistics.OrderItemWebUiConfig;
+import sssvn.webapp.config.logistics.OrderWebUiConfig;
 import sssvn.webapp.config.personnel.CarrierWebUiConfig;
 import sssvn.webapp.config.personnel.EmploymentWebUiConfig;
 import sssvn.webapp.config.personnel.ManagerWebUiConfig;
