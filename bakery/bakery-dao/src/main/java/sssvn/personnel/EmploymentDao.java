@@ -1,9 +1,8 @@
 package sssvn.personnel;
 
-import java.util.Date;
-
 import com.google.inject.Inject;
 
+import sssvn.security.tokens.persistent.Employment_CanSave_Token;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.dao.annotations.SessionRequired;
 import ua.com.fielden.platform.entity.annotation.EntityType;
@@ -12,6 +11,7 @@ import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.error.Result;
 import ua.com.fielden.platform.keygen.IKeyNumber;
 import ua.com.fielden.platform.keygen.KeyNumber;
+import ua.com.fielden.platform.security.Authorise;
 import ua.com.fielden.platform.utils.EntityUtils;
 /**
  * DAO implementation for companion object {@link EmploymentCo}.
@@ -42,6 +42,7 @@ public class EmploymentDao extends CommonEntityDao<Employment> implements Employ
     
     @Override
     @SessionRequired
+    @Authorise(Employment_CanSave_Token.class)
 	public Employment save(final Employment employment) {
 		employment.isValid().ifFailure(Result::throwRuntime);
 		
