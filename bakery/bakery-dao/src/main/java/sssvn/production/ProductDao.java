@@ -1,7 +1,11 @@
 package sssvn.production;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.google.inject.Inject;
 
+import sssvn.security.tokens.persistent.Product_CanDelete_Token;
 import sssvn.security.tokens.persistent.Product_CanSave_Token;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.dao.annotations.SessionRequired;
@@ -39,4 +43,19 @@ public class ProductDao extends CommonEntityDao<Product> implements ProductCo {
 	public Product save(Product entity) {
 		return super.save(entity);
 	}
+    
+    @Override
+    @SessionRequired
+    @Authorise(Product_CanDelete_Token.class)
+    public int batchDelete(final Collection<Long> entitiesIds) {
+        return defaultBatchDelete(entitiesIds);
+    }
+
+    @Override
+    @SessionRequired
+    @Authorise(Product_CanDelete_Token.class)
+    public int batchDelete(final List<Product> entities) {
+        return defaultBatchDelete(entities);
+    }
+    
 }
