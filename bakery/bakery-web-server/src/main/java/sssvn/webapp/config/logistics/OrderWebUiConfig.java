@@ -1,12 +1,8 @@
 package sssvn.webapp.config.logistics;
 
 import static java.lang.String.format;
-import static sssvn.common.LayoutComposer.CELL_LAYOUT;
-import static sssvn.common.LayoutComposer.MARGIN;
-import static sssvn.common.LayoutComposer.PADDING_LAYOUT;
 import static sssvn.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;
-import static ua.com.fielden.platform.web.layout.api.impl.LayoutBuilder.cell;
 
 import java.util.Optional;
 
@@ -72,7 +68,7 @@ public class OrderWebUiConfig {
                 .addTopAction(standardNewAction).also()
                 .addTopAction(standardExportAction)
                 // row 1
-                .addCrit("orderNo").asMulti().text().also()
+                .addCrit("this").asMulti().autocompleter(Order.class).also()
                 .addCrit("carrier").asMulti().autocompleter(Carrier.class).also()
                 // row 2
                 .addCrit("locationFrom").asMulti().autocompleter(Location.class).also()
