@@ -58,7 +58,7 @@ public class OrderWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Order> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(1, 2);
+        final String layout = LayoutComposer.mkVarGridForCentre(2, 2, 1, 1, 1);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Order.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Order.class);
@@ -71,10 +71,18 @@ public class OrderWebUiConfig {
                 .addFrontAction(standardNewAction)
                 .addTopAction(standardNewAction).also()
                 .addTopAction(standardExportAction)
+                // row 1
                 .addCrit("orderNo").asMulti().text().also()
                 .addCrit("carrier").asMulti().autocompleter(Carrier.class).also()
+                // row 2
                 .addCrit("locationFrom").asMulti().autocompleter(Location.class).also()
-                .addCrit("locationTo").asMulti().autocompleter(Location.class)
+                .addCrit("locationTo").asMulti().autocompleter(Location.class).also()
+                // row 3
+                .addCrit("orderDate").asRange().dateTime().also()
+                // row 4
+                .addCrit("deliveryDate").asRange().dateTime().also()
+                // row 5
+                .addCrit("delivered").asMulti().bool()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -84,7 +92,10 @@ public class OrderWebUiConfig {
                     .withAction(standardEditAction).also()
                 .addProp("locationFrom").minWidth(100).also()
                 .addProp("locationTo").minWidth(100).also()
-                .addProp("carrier").minWidth(100)
+                .addProp("carrier").minWidth(100).also()
+                .addProp("orderDate").minWidth(100).also()
+                .addProp("deliveryDate").minWidth(100).also()
+                .addProp("delivered").minWidth(70)
                 .addPrimaryAction(standardEditAction)
                 
                 .build();
@@ -99,14 +110,18 @@ public class OrderWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Order> createMaster(final Injector injector) {
-        final String layout = cell(
-                cell(cell().repeat(2).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN))
-               .cell(cell().repeat(1).layoutForEach(CELL_LAYOUT).withGapBetweenCells(MARGIN)), PADDING_LAYOUT).toString();
+    	final String layout = LayoutComposer.mkVarGridForCentre(2, 2, 2);
 
         final IMaster<Order> masterConfig = new SimpleMasterBuilder<Order>().forEntity(Order.class)
+        		// row 1
                 .addProp("locationFrom").asAutocompleter().also()
                 .addProp("locationTo").asAutocompleter().also()
+                // row 2
                 .addProp("carrier").asAutocompleter().also()
+                .addProp("delivered").asCheckbox().also()
+                // row 3
+                .addProp("orderDate").asDateTimePicker().also()
+                .addProp("deliveryDate").asDateTimePicker().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
